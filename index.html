@@ -2,9 +2,22 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Launcher">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Mobile Drag & Drop Polyfill -->
+    <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/icons.css">
+    
     <style>
         * {
             margin: 0;
@@ -78,15 +91,12 @@
             background: rgba(16, 185, 129, 0.15);
             border-color: rgba(16, 185, 129, 0.5);
         }
-        body[data-theme="neon"] .tab {
             background: rgba(16, 185, 129, 0.2);
             border-color: rgba(16, 185, 129, 0.6);
         }
-        body[data-theme="neon"] .tab:hover {
             background: rgba(16, 185, 129, 0.4);
             box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
         }
-        body[data-theme="neon"] .tab.active {
             background: linear-gradient(135deg, #10b981, #06b6d4);
             box-shadow: 0 5px 20px rgba(16, 185, 129, 0.7);
         }
@@ -144,15 +154,12 @@
             background: rgba(251, 146, 60, 0.15);
             border-color: rgba(251, 146, 60, 0.5);
         }
-        body[data-theme="sunset"] .tab {
             background: rgba(251, 146, 60, 0.25);
             border-color: rgba(251, 146, 60, 0.6);
         }
-        body[data-theme="sunset"] .tab:hover {
             background: rgba(251, 146, 60, 0.4);
             box-shadow: 0 5px 20px rgba(251, 146, 60, 0.4);
         }
-        body[data-theme="sunset"] .tab.active {
             background: linear-gradient(135deg, #fbbf24, #ef4444);
             box-shadow: 0 5px 20px rgba(239, 68, 68, 0.7);
         }
@@ -210,15 +217,12 @@
             background: rgba(6, 182, 212, 0.15);
             border-color: rgba(6, 182, 212, 0.5);
         }
-        body[data-theme="ocean"] .tab {
             background: rgba(6, 182, 212, 0.25);
             border-color: rgba(6, 182, 212, 0.6);
         }
-        body[data-theme="ocean"] .tab:hover {
             background: rgba(6, 182, 212, 0.4);
             box-shadow: 0 5px 20px rgba(6, 182, 212, 0.4);
         }
-        body[data-theme="ocean"] .tab.active {
             background: linear-gradient(135deg, #06b6d4, #0ea5e9);
             box-shadow: 0 5px 20px rgba(6, 182, 212, 0.7);
         }
@@ -320,17 +324,14 @@
         body[data-theme="light"] .clear-history:hover {
             background: rgba(255, 255, 255, 1);
         }
-        body[data-theme="light"] .tab {
             background: rgba(255, 255, 255, 0.8);
             border-color: rgba(59, 130, 246, 0.4);
             color: #1e293b;
         }
-        body[data-theme="light"] .tab:hover {
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
             border-color: rgba(59, 130, 246, 0.6);
         }
-        body[data-theme="light"] .tab.active {
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5);
@@ -1024,42 +1025,6 @@
         }
 
         /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .tab {
-            padding: 12px 30px;
-            background: rgba(255, 255, 255, 0.25);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .tab:hover {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
-        }
-
-        .tab.active {
-            background: linear-gradient(135deg, #fbbf24, #f97316);
-            border-color: transparent;
-            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.6);
-            color: #fff;
-        }
-
         /* Links Grid */
         .links-grid {
             display: grid;
@@ -1145,6 +1110,185 @@
         @keyframes starPulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
+        }
+
+        /* Preview on Hover */
+        .link-card-preview {
+            position: absolute;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            background: linear-gradient(135deg, rgba(20, 27, 58, 0.98) 0%, rgba(10, 14, 39, 0.98) 100%);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 250px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+            backdrop-filter: blur(20px);
+        }
+
+        /* Desktop: Hover */
+        @media (hover: hover) and (pointer: fine) {
+            .link-card:hover .link-card-preview {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        /* Mobile: Tap to toggle */
+        @media (hover: none) or (pointer: coarse) {
+            .link-card.show-preview .link-card-preview {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) scale(1);
+            }
+            
+            .link-card-preview {
+                pointer-events: auto;
+            }
+            
+            /* Info button on mobile */
+            .link-info-btn {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                width: 24px;
+                height: 24px;
+                background: rgba(59, 130, 246, 0.9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7em;
+                color: white;
+                z-index: 10;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                pointer-events: auto;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+                touch-action: manipulation;
+            }
+            
+            .link-info-btn:active {
+                transform: scale(0.9);
+                background: rgba(59, 130, 246, 1);
+            }
+            
+            /* Favorite button on mobile */
+            .link-fav-btn {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                width: 24px;
+                height: 24px;
+                background: rgba(251, 191, 36, 0.9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.9em;
+                color: white;
+                z-index: 10;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                pointer-events: auto;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: rgba(251, 191, 36, 0.3);
+                touch-action: manipulation;
+            }
+            
+            .link-fav-btn:active {
+                transform: scale(0.9);
+                background: rgba(251, 191, 36, 1);
+            }
+            
+            .link-fav-btn.active {
+                background: rgba(251, 191, 36, 1);
+            }
+        }
+
+        /* Hide info button on desktop */
+        @media (hover: hover) and (pointer: fine) {
+            .link-info-btn {
+                display: none;
+            }
+            .link-fav-btn {
+                display: none;
+            }
+        }
+
+        .preview-url {
+            font-size: 0.75em;
+            color: var(--text-dim);
+            word-break: break-all;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .preview-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+        }
+
+        .preview-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .preview-stat-label {
+            color: var(--text-dim);
+            font-size: 0.8em;
+        }
+
+        .preview-stat-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Offline Indicator */
+        .offline-indicator {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(239, 68, 68, 0.95);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 10000;
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.5);
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .offline-indicator.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
         /* Drag & Drop Cursor */
@@ -1272,18 +1416,30 @@
         }
 
         @media (max-width: 768px) {
+            /* Compact header pentru mobil */
+            .header {
+                padding: 15px 10px;
+                margin-bottom: 15px;
+            }
+            
             .header h1 {
-                font-size: 2em;
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
+            
+            .subtitle {
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            
+            .subtitle .badge {
+                font-size: 0.75em;
+                padding: 6px 10px;
             }
             
             .links-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                 gap: 15px;
-            }
-
-            .subtitle .badge {
-                font-size: 0.9em;
-                padding: 8px 16px;
             }
 
             .container {
@@ -1321,6 +1477,102 @@
             .server-status-icon {
                 font-size: 3em;
             }
+
+            /* Mobile: Preview cards */
+            .link-card-preview {
+                min-width: 200px;
+                padding: 12px;
+                font-size: 0.85em;
+                bottom: auto;
+                top: 105%;
+            }
+
+            .preview-url {
+                font-size: 0.7em;
+                margin-bottom: 6px;
+                padding-bottom: 6px;
+            }
+
+            .preview-stats {
+                gap: 10px;
+            }
+
+            /* Mobile: Offline indicator */
+            .offline-indicator {
+                top: 5px;
+                font-size: 0.75em;
+                padding: 8px 15px;
+                max-width: 90%;
+                text-align: center;
+            }
+
+            /* Mobile: Fixed buttons smaller */
+            .add-site-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            #soundToggle, #themeToggle {
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 1.2em !important;
+            }
+        }
+
+        /* Extra optimizări pentru telefoane foarte mici */
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px 10px;
+                margin-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.6em; /* Titlu mai mic */
+                margin-bottom: 5px;
+            }
+            
+            .subtitle {
+                gap: 6px;
+            }
+            
+            .subtitle .badge {
+                padding: 6px 12px; /* Butoane mai mici */
+                font-size: 0.8em;
+            }
+            
+            .search-box input {
+                padding: 12px 20px; /* Search bar mai compact */
+                font-size: 0.95em;
+            }
+            
+            .search-box button {
+                padding: 12px 20px;
+            }
+            
+            .links-grid {
+                gap: 10px; /* Spațiu mai mic între iconițe */
+                grid-template-columns: repeat(3, 1fr); /* 3 coloane pe mobil */
+            }
+            
+            .link-card {
+                padding: 15px 10px;
+            }
+            
+            .link-card .link-name {
+                font-size: 0.8em; /* Text mai mic la iconițe */
+            }
+            
+            .link-card img {
+                width: 48px; 
+                height: 48px;
+            }
+            
+            .container {
+                padding: 8px;
+            }
         }
     </style>
 </head>
@@ -1351,12 +1603,16 @@
     <button id="themeToggle" style="position: fixed; bottom: 170px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="cycleTheme()" title="Change Theme">
         🎨
     </button>
+
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offlineIndicator">
+        📡 Offline Mode - Unele funcții pot fi limitate
+    </div>
     
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🚀 FAMILIA STREANGA</h1>
-            <h1>🚀 CDȘ</h1>
+            <h1>🚀 HERCULES MATUSALEM</h1>
             <div class="subtitle">
                 <span class="badge" onclick="toggleClockModal()">
                     <i class="fas fa-clock"></i>
@@ -1409,13 +1665,10 @@
         <!-- Button Filter - FULL WIDTH -->
         <div class="search-container">
             <div class="search-box">
-                <input type="text" id="filterInput" placeholder="🔍 Filtrează butoane..." 
+                <input type="text" id="filterInput" placeholder="🔍 Caută site sau categorie (ex: email, filme, youtube)..." 
                        oninput="filterButtons()">
             </div>
         </div>
-
-        <!-- Category Tabs -->
-        <div class="tabs" id="tabs"></div>
 
         <!-- Links Grid -->
         <div class="links-grid" id="linksGrid"></div>
@@ -1857,10 +2110,12 @@
         // Favorites and Drag-Drop Management
         const FAVORITES_KEY = 'favoriteLinks_v1';
         const CUSTOM_ORDER_KEY = 'customOrder_v1';
+        const VISIT_STATS_KEY = 'visitStats_v1';
         let favorites = new Set();
         let customOrder = [];
         let draggedElement = null;
         let draggedIndex = null;
+        let visitStats = {}; // { url: { count: 0, lastVisit: timestamp } }
 
         const CATEGORIES = [
             { key: "all", label: "All", icon: "fa-th" },
@@ -1973,22 +2228,6 @@
         }
 
         // Render tabs
-        function renderTabs() {
-            const tabsEl = document.getElementById("tabs");
-            tabsEl.innerHTML = "";
-            CATEGORIES.forEach(cat => {
-                const el = document.createElement("div");
-                el.className = "tab" + (cat.key === currentFilter ? " active" : "");
-                el.dataset.category = cat.key;
-                el.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.label}`;
-                el.addEventListener("click", () => {
-                    playSound('categorySound', 0.4);
-                    filterLinks(cat.key);
-                });
-                tabsEl.appendChild(el);
-            });
-        }
-
         // Populate category select
         function populateCategorySelect() {
             const sel = document.getElementById("siteCategory");
@@ -2002,6 +2241,32 @@
             });
         }
 
+        // Initialize Mobile Drag & Drop Polyfill
+        (function initMobileDragDrop() {
+            var mobileDragDrop = window.MobileDragDrop;
+            if (mobileDragDrop) {
+                mobileDragDrop.polyfill({
+                    dragImageOffset: { x: 0, y: 0 },
+                    // Permite drag doar dacă atingerea nu e pe un buton
+                    dragStartConditionOverride: function(event) {
+                        return !event.target.closest('.link-info-btn') && 
+                               !event.target.closest('.link-fav-btn');
+                    }
+                });
+                
+                // Fix pentru scroll în timpul drag-ului
+                document.addEventListener('touchmove', function(e) {
+                    if (document.querySelector('.dnd-poly-drag-image')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+                
+                console.log('✅ Mobile Drag & Drop enabled with button override');
+            } else {
+                console.log('⚠️ Mobile Drag & Drop polyfill not loaded');
+            }
+        })();
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize theme system
@@ -2013,9 +2278,15 @@
             // Initialize favorites and custom order
             loadFavorites();
             loadCustomOrder();
+            loadVisitStats();
+            
+            // Initialize offline detection
+            initOfflineDetection();
+            
+            // Adjust search placeholder for mobile
+            adjustMobilePlaceholder();
             
             createParticles();
-            renderTabs();
             populateCategorySelect();
             renderLinks();
             renderSearchHistory();
@@ -2070,6 +2341,74 @@
                 }
             });
         });
+
+        // ===== OFFLINE MODE DETECTION =====
+        function initOfflineDetection() {
+            const offlineIndicator = document.getElementById('offlineIndicator');
+            
+            function updateOnlineStatus() {
+                if (!navigator.onLine) {
+                    offlineIndicator.classList.add('show');
+                    console.log('📡 Offline mode activated');
+                } else {
+                    offlineIndicator.classList.remove('show');
+                    console.log('🌐 Back online');
+                }
+            }
+            
+            // Check initial status
+            updateOnlineStatus();
+            
+            // Listen for online/offline events
+            window.addEventListener('online', () => {
+                updateOnlineStatus();
+                showNotification('🌐 Back online!', 'success');
+            });
+            
+            window.addEventListener('offline', () => {
+                updateOnlineStatus();
+                showNotification('📡 Offline mode - Limited functionality', 'info');
+            });
+        }
+        
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(
+                    (registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    },
+                    (error) => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    }
+                );
+            });
+        }
+
+        // Adjust search placeholder for mobile
+        function adjustMobilePlaceholder() {
+            const filterInput = document.getElementById('filterInput');
+            if (!filterInput) return;
+            
+            // Detect mobile
+            const isMobile = window.innerWidth <= 768 || 
+                           ('ontouchstart' in window) || 
+                           (navigator.maxTouchPoints > 0);
+            
+            if (isMobile) {
+                filterInput.placeholder = '🔍 Caută (ex: youtube, email)...';
+            }
+            
+            // Update on resize
+            window.addEventListener('resize', () => {
+                const isMobileNow = window.innerWidth <= 768;
+                if (isMobileNow) {
+                    filterInput.placeholder = '🔍 Caută (ex: youtube, email)...';
+                } else {
+                    filterInput.placeholder = '🔍 Caută site sau categorie (ex: email, filme, youtube)...';
+                }
+            });
+        }
 
         // Create animated particles
         function createParticles() {
@@ -2131,9 +2470,92 @@
                 card.target = '_blank';
                 card.draggable = true;
                 
-                // Click sound
+                // Click sound and track visit
                 card.addEventListener('click', (e) => {
                     playSound('clickSound', 0.3);
+                    trackVisit(link.url);
+                });
+                
+                // Get visit stats
+                const stats = visitStats[link.url] || { count: 0, lastVisit: null };
+                const lastVisitText = stats.lastVisit 
+                    ? new Date(stats.lastVisit).toLocaleDateString('ro-RO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+                    : 'Niciodată';
+                
+                // Build preview HTML
+                const previewHTML = `
+                    <div class="link-card-preview">
+                        <div class="preview-url">${link.url}</div>
+                        <div class="preview-stats">
+                            <div class="preview-stat">
+                                <span class="preview-stat-label">Vizite</span>
+                                <span class="preview-stat-value">${stats.count}</span>
+                            </div>
+                            <div class="preview-stat">
+                                <span class="preview-stat-label">Ultima vizită</span>
+                                <span class="preview-stat-value">${lastVisitText}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                card.innerHTML = `
+                    ${isFavorite ? '<div class="favorite-star">⭐</div>' : ''}
+                    <div class="link-info-btn" title="Info">ℹ️</div>
+                    <div class="link-fav-btn ${isFavorite ? 'active' : ''}" title="Favorite">${isFavorite ? '★' : '☆'}</div>
+                    <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
+                         alt="${link.name}" 
+                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>'">
+                    <div class="link-name">${link.name}</div>
+                    ${previewHTML}
+                `;
+                
+                // Mobile: Info button toggles preview
+                const infoBtn = card.querySelector('.link-info-btn');
+                if (infoBtn) {
+                    // Handler function
+                    const handleInfoClick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Close all other previews
+                        document.querySelectorAll('.link-card.show-preview').forEach(c => {
+                            if (c !== card) c.classList.remove('show-preview');
+                        });
+                        
+                        // Toggle current preview
+                        const isShowing = card.classList.toggle('show-preview');
+                        playSound('bleepSound', 0.2);
+                        
+                        console.log('Preview toggled:', isShowing ? 'OPEN' : 'CLOSED');
+                    };
+                    
+                    // Add both touch and click events for maximum compatibility
+                    infoBtn.addEventListener('touchend', handleInfoClick, { passive: false });
+                    infoBtn.addEventListener('click', handleInfoClick);
+                }
+                
+                // Mobile: Favorite button toggles favorite
+                const favBtn = card.querySelector('.link-fav-btn');
+                if (favBtn) {
+                    const handleFavClick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleFavorite(link.url);
+                    };
+                    
+                    // Add both touch and click events
+                    favBtn.addEventListener('touchend', handleFavClick, { passive: false });
+                    favBtn.addEventListener('click', handleFavClick);
+                }
+                
+                // Close preview when clicking outside (mobile)
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.link-card')) {
+                        document.querySelectorAll('.link-card.show-preview').forEach(c => {
+                            c.classList.remove('show-preview');
+                        });
+                    }
                 });
                 
                 // Drag & Drop events
@@ -2148,16 +2570,35 @@
                     toggleFavorite(link.url);
                     return false;
                 });
-                
-                card.innerHTML = `
-                    ${isFavorite ? '<div class="favorite-star">⭐</div>' : ''}
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
-                         alt="${link.name}" 
-                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>'">
-                    <div class="link-name">${link.name}</div>
-                `;
                 grid.appendChild(card);
             });
+        }
+
+        // ===== VISIT STATS TRACKING =====
+        function loadVisitStats() {
+            try {
+                const saved = localStorage.getItem(VISIT_STATS_KEY);
+                visitStats = saved ? JSON.parse(saved) : {};
+            } catch (e) {
+                visitStats = {};
+            }
+        }
+        
+        function saveVisitStats() {
+            try {
+                localStorage.setItem(VISIT_STATS_KEY, JSON.stringify(visitStats));
+            } catch (e) {
+                console.error('Error saving visit stats:', e);
+            }
+        }
+        
+        function trackVisit(url) {
+            if (!visitStats[url]) {
+                visitStats[url] = { count: 0, lastVisit: null };
+            }
+            visitStats[url].count++;
+            visitStats[url].lastVisit = Date.now();
+            saveVisitStats();
         }
 
         // ===== FAVORITES SYSTEM =====
@@ -2214,6 +2655,7 @@
             draggedElement = e.target;
             draggedIndex = parseInt(e.target.dataset.index);
             e.target.style.opacity = '0.5';
+            e.target.setAttribute('dragging', 'true'); // For mobile polyfill
             e.dataTransfer.effectAllowed = 'move';
             playSound('clickSound', 0.2);
         }
@@ -2265,9 +2707,10 @@
         }
         
         function handleDragEnd(e) {
-            e.target.style.opacity = '1';
+            e.target.style.opacity = '';
+            e.target.removeAttribute('dragging'); // Remove mobile feedback
             
-            // Remove all drag effects
+            // Remove transform from all cards
             document.querySelectorAll('.link-card').forEach(card => {
                 card.style.transform = '';
             });
@@ -2276,16 +2719,51 @@
             draggedIndex = null;
         }
 
+
         // Filter buttons
+        // ===== IMPROVED SEARCH WITH FUZZY MATCHING =====
+        function fuzzyMatch(str, pattern) {
+            // Simple fuzzy matching - allows for typos
+            if (!pattern) return true;
+            
+            str = str.toLowerCase();
+            pattern = pattern.toLowerCase();
+            
+            // Exact match or substring match gets priority
+            if (str.includes(pattern)) return true;
+            
+            // Fuzzy match - allows skipping characters
+            let patternIdx = 0;
+            for (let i = 0; i < str.length && patternIdx < pattern.length; i++) {
+                if (str[i] === pattern[patternIdx]) {
+                    patternIdx++;
+                }
+            }
+            
+            return patternIdx === pattern.length;
+        }
+        
         function filterButtons() {
             const query = document.getElementById('filterInput').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.link-card');
             
+            if (query === '') {
+                // Show all cards
+                cards.forEach(card => card.classList.remove('hidden'));
+                return;
+            }
+            
             cards.forEach(card => {
                 const name = card.dataset.name;
                 const category = card.dataset.category;
+                const url = card.dataset.url ? card.dataset.url.toLowerCase() : '';
                 
-                if (query === '' || name.includes(query) || category.includes(query)) {
+                // Check if query matches name, category, or URL
+                const matchesName = fuzzyMatch(name, query);
+                const matchesCategory = fuzzyMatch(category, query);
+                const matchesUrl = url.includes(query);
+                
+                if (matchesName || matchesCategory || matchesUrl) {
                     card.classList.remove('hidden');
                 } else {
                     card.classList.add('hidden');
@@ -2293,12 +2771,10 @@
             });
         }
 
-        // Filter links by category
+        // Filter links by category (not used anymore, kept for compatibility)
         function filterLinks(category) {
             currentFilter = category;
-            renderTabs();
             renderLinks();
-            document.getElementById('filterInput').value = '';
         }
 
         // Google Search
