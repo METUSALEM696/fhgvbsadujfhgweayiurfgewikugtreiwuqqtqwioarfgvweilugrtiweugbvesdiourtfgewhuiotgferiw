@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
@@ -46,6 +46,14 @@
             max-width: 100%;
         }
 
+        .time-date-inline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .main-time-display {
             font-size: 2.8em;
             font-weight: 900;
@@ -55,7 +63,7 @@
                          0 0 50px rgba(0, 255, 255, 0.6),
                          0 3px 10px rgba(0, 0, 0, 0.8),
                          0 0 5px rgba(0, 0, 0, 1);
-            margin-bottom: 5px;
+            margin-bottom: 0;
             font-family: 'Courier New', monospace;
             letter-spacing: 0.12em;
         }
@@ -64,7 +72,7 @@
             text-align: center;
             font-size: 1.05em;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 0;
             font-weight: 700;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9),
                          0 0 5px rgba(0, 0, 0, 1);
@@ -240,6 +248,19 @@
             
             .enhanced-clock-container {
                 max-width: 100%;
+            }
+            
+            .time-date-inline {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .main-time-display {
+                font-size: 2em;
+            }
+            
+            .full-date-display {
+                font-size: 0.9em;
             }
         }
 
@@ -1794,7 +1815,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-          <h1>🚀 FAMILIA STREANGA CDȘ</h1>
+            <h1>🚀 FAMILIA STREANGA CDȘ</h1>
             
             <!-- THREE COLUMN LAYOUT: Weather | Clock | Server -->
             <div class="header-three-columns">
@@ -1813,8 +1834,10 @@
                 <!-- CENTER: Clock -->
                 <div class="header-center">
                     <div class="enhanced-clock-container">
-                        <div class="main-time-display" id="mainTime">--:--:--</div>
-                        <div class="full-date-display" id="fullDateMain">--</div>
+                        <div class="time-date-inline">
+                            <div class="main-time-display" id="mainTime">--:--:--</div>
+                            <div class="full-date-display" id="fullDateMain">--</div>
+                        </div>
                         
                         <div class="date-details-grid">
                             <div class="date-detail-item">
