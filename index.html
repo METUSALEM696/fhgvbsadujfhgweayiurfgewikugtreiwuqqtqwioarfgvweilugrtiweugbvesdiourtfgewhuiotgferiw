@@ -810,11 +810,13 @@
 
         .weather-modal-content {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.6);
             max-width: 600px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             backdrop-filter: blur(20px);
         }
@@ -923,11 +925,13 @@
 
         .clock-modal-content {
             background: linear-gradient(135deg, rgba(236, 72, 153, 0.95) 0%, rgba(168, 85, 247, 0.95) 100%);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.6);
             max-width: 500px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             text-align: center;
             backdrop-filter: blur(20px);
@@ -1011,11 +1015,13 @@
 
         .server-modal-content {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(6, 182, 212, 0.95) 100%);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.6);
             max-width: 500px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             backdrop-filter: blur(20px);
         }
@@ -1389,12 +1395,70 @@
                 transform: scale(0.9);
                 background: rgba(59, 130, 246, 1);
             }
+
+            /* Edit button on mobile */
+            .link-edit-btn {
+                position: absolute;
+                top: 8px;
+                right: 38px;
+                width: 24px;
+                height: 24px;
+                background: rgba(251, 146, 60, 0.9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7em;
+                color: white;
+                z-index: 10;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                pointer-events: auto;
+                user-select: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: rgba(251, 146, 60, 0.3);
+                touch-action: manipulation;
+            }
+            
+            .link-edit-btn:active {
+                transform: scale(0.9);
+                background: rgba(251, 146, 60, 1);
+            }
         }
 
-        /* Hide info button on desktop */
+        /* Hide info and edit buttons on desktop */
         @media (hover: hover) and (pointer: fine) {
             .link-info-btn {
                 display: none;
+            }
+
+            .link-edit-btn {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                width: 28px;
+                height: 28px;
+                background: rgba(251, 146, 60, 0.9);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8em;
+                color: white;
+                z-index: 10;
+                cursor: pointer;
+                opacity: 0;
+                transition: opacity 0.3s ease, transform 0.2s ease;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .link-card:hover .link-edit-btn {
+                opacity: 1;
+            }
+
+            .link-edit-btn:hover {
+                transform: scale(1.1);
+                background: rgba(251, 146, 60, 1);
             }
         }
 
@@ -1492,13 +1556,34 @@
 
         .modal-content {
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(219, 39, 119, 0.95) 100%);
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.6);
             max-width: 500px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             position: relative;
             backdrop-filter: blur(20px);
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .modal-content h2 {
@@ -1509,15 +1594,23 @@
         .modal-content input,
         .modal-content select {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            margin: 5px 0;
+            border: 3px solid #000000;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.25);
-            color: var(--text);
-            font-size: 1em;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            font-size: 0.95em;
             outline: none;
             backdrop-filter: blur(10px);
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus,
+        .modal-content textarea:focus {
+            border-color: #8B5CF6;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
         }
 
         .modal-content input::placeholder {
@@ -1828,15 +1921,54 @@
     <!-- Add Site Modal -->
     <div class="modal" id="addModal">
         <div class="modal-content">
-            <h2>➕ Adaugă Site Nou</h2>
+            <h2 style="margin-bottom: 15px;">➕ Adaugă Site Nou</h2>
+            <label style="color: #000000; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">Nume Site:</label>
             <input type="text" id="siteName" placeholder="Nume site (ex: YouTube)">
+            <label style="color: #000000; display: block; font-size: 0.9em; margin-top: 10px; margin-bottom: 3px; font-weight: 700;">URL:</label>
             <input type="text" id="siteUrl" placeholder="URL (ex: https://youtube.com)">
+            <label style="color: #000000; display: block; font-size: 0.9em; margin-top: 10px; margin-bottom: 3px; font-weight: 700;">Categorie:</label>
             <select id="siteCategory">
                 <option value="">-- Selectează Categoria --</option>
             </select>
             <div class="modal-buttons">
                 <button class="btn-primary" onclick="addSite()">✅ Adaugă</button>
                 <button class="btn-secondary" onclick="closeAddModal()">❌ Anulează</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Site Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 15px;">✏️ Editează Site</h2>
+            
+            <label style="color: #000000; margin-top: 5px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">Nume Site:</label>
+            <input type="text" id="editSiteName" placeholder="Nume site (ex: YouTube)">
+            
+            <label style="color: #000000; margin-top: 10px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">URL Site:</label>
+            <input type="text" id="editSiteUrl" placeholder="URL (ex: https://youtube.com)">
+            
+            <label style="color: #000000; margin-top: 10px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">URL Icon/Poză (opțional):</label>
+            <input type="text" id="editIconUrl" placeholder="ex: https://example.com/logo.png">
+            <div style="color: rgba(0, 0, 0, 0.7); font-size: 0.75em; margin: 3px 0; font-weight: 600;">
+                💡 PNG, JPG, SVG. Gol = favicon automat
+            </div>
+            
+            <label style="color: #000000; margin-top: 10px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">Categorie:</label>
+            <select id="editSiteCategory">
+                <option value="">-- Selectează Categoria --</option>
+            </select>
+            
+            <label style="color: #000000; margin-top: 10px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">Tags (opțional):</label>
+            <input type="text" id="editSiteTags" placeholder="ex: video, music">
+            
+            <label style="color: #000000; margin-top: 10px; display: block; font-size: 0.9em; margin-bottom: 3px; font-weight: 700;">Note Personale:</label>
+            <textarea id="editSiteNotes" placeholder="Note..." style="width: 100%; padding: 10px; margin: 5px 0; border: 3px solid #000000; border-radius: 10px; background: rgba(255, 255, 255, 0.9); color: #000000; font-size: 0.9em; outline: none; backdrop-filter: blur(10px); resize: vertical; min-height: 50px; font-family: inherit;"></textarea>
+            
+            <div class="modal-buttons" style="margin-top: 15px;">
+                <button class="btn-primary" onclick="saveEditSite()">💾 Salvează</button>
+                <button class="btn-secondary" onclick="closeEditModal()">❌ Anulează</button>
+                <button class="btn-secondary" onclick="deleteSite()" style="background: rgba(239, 68, 68, 0.3); border-color: var(--danger);">🗑️ Șterge</button>
             </div>
         </div>
     </div>
@@ -2379,14 +2511,15 @@
         // Populate category select
         function populateCategorySelect() {
             const sel = document.getElementById("siteCategory");
-            if (!sel) return;
-            sel.innerHTML = '<option value="">-- Selectează Categoria --</option>';
-            CATEGORIES.filter(c => c.key !== "all").forEach(c => {
-                const opt = document.createElement("option");
-                opt.value = c.key;
-                opt.textContent = c.label;
-                sel.appendChild(opt);
-            });
+            const editSel = document.getElementById("editSiteCategory");
+            
+            const options = '<option value="">-- Selectează Categoria --</option>' +
+                CATEGORIES.filter(c => c.key !== "all").map(c => 
+                    `<option value="${c.key}">${c.label}</option>`
+                ).join('');
+            
+            if (sel) sel.innerHTML = options;
+            if (editSel) editSel.innerHTML = options;
         }
 
         // Initialize
@@ -2396,6 +2529,14 @@
             
             // Initialize sound system
             loadSoundSettings();
+            
+            // Load all links (includes custom + modifications)
+            const linksLoaded = loadAllLinks();
+            
+            // If no saved links, try to migrate from old format
+            if (!linksLoaded) {
+                loadCustomLinks(); // Migration from old format
+            }
             
             // Initialize favorites and custom order
             loadFavorites();
@@ -2410,14 +2551,13 @@
             
             createParticles();
             populateCategorySelect();
-            renderLinks();
+            renderLinks(); // Now render with loaded links
             renderSearchHistory();
             updateClock();
             checkServerStatus();
             loadWeather();
             setInterval(updateClock, 1000);
             setInterval(checkServerStatus, 5000);
-            loadCustomLinks();
 
             // Add typing sound to all text inputs
             const inputs = document.querySelectorAll('input[type="text"]');
@@ -2582,6 +2722,9 @@
                 const domain = new URL(link.url).hostname;
                 const isFavorite = favorites.has(link.url);
                 
+                // Use custom icon if available, otherwise use Google favicon
+                const iconUrl = link.iconUrl || `https://www.google.com/s2/favicons?sz=64&domain=${domain}`;
+                
                 const card = document.createElement('a');
                 card.href = link.url;
                 card.className = 'link-card';
@@ -2624,7 +2767,8 @@
                 card.innerHTML = `
                     ${isFavorite ? '<div class="favorite-star">⭐</div>' : ''}
                     <div class="link-info-btn" title="Info">ℹ️</div>
-                    <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
+                    <div class="link-edit-btn" title="Editează" onclick="event.preventDefault(); event.stopPropagation(); openEditModal(${index});">✏️</div>
+                    <img src="${iconUrl}" 
                          alt="${link.name}" 
                          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>'">
                     <div class="link-name">${link.name}</div>
@@ -3713,11 +3857,166 @@
             }
 
             playSound('permanentSound', 0.4);
-            links.push({ name, url, category });
-            saveCustomLinks();
+            links.push({ 
+                name, 
+                url, 
+                category,
+                iconUrl: null,
+                tags: null,
+                notes: null
+            });
+            saveAllLinks(); // Use new save function
             renderLinks();
             closeAddModal();
             showNotification('✅ Site adăugat cu succes!');
+        }
+
+        // ===== EDIT SITE MODAL =====
+        let currentEditIndex = null;
+
+        function openEditModal(index) {
+            currentEditIndex = index;
+            const link = links[index];
+            
+            if (!link) {
+                alert('Eroare: Site-ul nu a fost găsit!');
+                return;
+            }
+            
+            // Pre-fill form
+            document.getElementById('editSiteName').value = link.name || '';
+            document.getElementById('editSiteUrl').value = link.url || '';
+            document.getElementById('editIconUrl').value = link.iconUrl || '';
+            document.getElementById('editSiteCategory').value = link.category || '';
+            document.getElementById('editSiteTags').value = link.tags || '';
+            document.getElementById('editSiteNotes').value = link.notes || '';
+            
+            playSound('bleepSound', 0.3);
+            document.getElementById('editModal').classList.add('show');
+        }
+
+        function closeEditModal() {
+            playSound('thudSound', 0.2);
+            document.getElementById('editModal').classList.remove('show');
+            currentEditIndex = null;
+            document.getElementById('editSiteName').value = '';
+            document.getElementById('editSiteUrl').value = '';
+            document.getElementById('editIconUrl').value = '';
+            document.getElementById('editSiteCategory').value = '';
+            document.getElementById('editSiteTags').value = '';
+            document.getElementById('editSiteNotes').value = '';
+        }
+
+        function saveEditSite() {
+            if (currentEditIndex === null) {
+                alert('Eroare: Nu s-a găsit site-ul de editat!');
+                return;
+            }
+
+            const newName = document.getElementById('editSiteName').value.trim();
+            const newUrl = document.getElementById('editSiteUrl').value.trim();
+            const newIconUrl = document.getElementById('editIconUrl').value.trim();
+            const newCategory = document.getElementById('editSiteCategory').value;
+            const newTags = document.getElementById('editSiteTags').value.trim();
+            const newNotes = document.getElementById('editSiteNotes').value.trim();
+
+            if (!newName || !newUrl || !newCategory) {
+                alert('Te rog completează câmpurile obligatorii (Nume, URL, Categorie)!');
+                return;
+            }
+
+            if (!newUrl.startsWith('http://') && !newUrl.startsWith('https://')) {
+                alert('URL-ul trebuie să înceapă cu http:// sau https://');
+                return;
+            }
+
+            const oldUrl = links[currentEditIndex].url;
+            
+            // Update link with all fields
+            links[currentEditIndex] = { 
+                name: newName, 
+                url: newUrl, 
+                iconUrl: newIconUrl || null,
+                category: newCategory,
+                tags: newTags || null,
+                notes: newNotes || null
+            };
+
+            // Update favorites if URL changed
+            if (oldUrl !== newUrl && favorites.has(oldUrl)) {
+                favorites.delete(oldUrl);
+                favorites.add(newUrl);
+                saveFavorites();
+            }
+
+            // Update custom order if URL changed
+            if (oldUrl !== newUrl) {
+                const orderIndex = customOrder.indexOf(oldUrl);
+                if (orderIndex !== -1) {
+                    customOrder[orderIndex] = newUrl;
+                    saveCustomOrder();
+                }
+            }
+
+            // Update visit stats if URL changed
+            if (oldUrl !== newUrl && visitStats[oldUrl]) {
+                visitStats[newUrl] = visitStats[oldUrl];
+                delete visitStats[oldUrl];
+                saveVisitStats();
+            }
+
+            playSound('permanentSound', 0.4);
+            saveAllLinks(); // Save ALL links including modified originals
+            renderLinks();
+            closeEditModal();
+            showNotification('✅ Site actualizat cu succes!', 'success');
+        }
+
+        function deleteSite() {
+            if (currentEditIndex === null) {
+                alert('Eroare: Nu s-a găsit site-ul de șters!');
+                return;
+            }
+
+            // Check if it's a custom link (can only delete custom links)
+            if (currentEditIndex < ORIGINAL_COUNT) {
+                alert('Nu poți șterge site-urile predefinite! Poți doar să le editezi.');
+                return;
+            }
+
+            if (!confirm('Sigur vrei să ștergi acest site?\n\nAceastă acțiune nu poate fi anulată!')) {
+                return;
+            }
+
+            const url = links[currentEditIndex].url;
+
+            // Remove from links
+            links.splice(currentEditIndex, 1);
+
+            // Remove from favorites
+            if (favorites.has(url)) {
+                favorites.delete(url);
+                saveFavorites();
+            }
+
+            // Remove from custom order
+            const orderIndex = customOrder.indexOf(url);
+            if (orderIndex !== -1) {
+                customOrder.splice(orderIndex, 1);
+                saveCustomOrder();
+            }
+
+            // Remove from visit stats
+            if (visitStats[url]) {
+                delete visitStats[url];
+                saveVisitStats();
+            }
+
+            playSound('thudSound', 0.3);
+            saveAllLinks(); // Save updated links
+            renderLinks();
+            closeEditModal();
+            showNotification('🗑️ Site șters cu succes!', 'info');
         }
 
         function showNotification(message) {
@@ -3741,11 +4040,44 @@
             }, 3000);
         }
 
-        // LocalStorage functions
-        const CUSTOM_KEY = "customLinks_v2";
+        // LocalStorage functions - COMPREHENSIVE SAVE/LOAD
+        const ALL_LINKS_KEY = "allLinks_v3";  // New key for all links including modifications
         const ORIGINAL_COUNT = 67;
 
+        function saveAllLinks() {
+            try {
+                // Save ALL links (original + custom + modifications)
+                localStorage.setItem(ALL_LINKS_KEY, JSON.stringify(links));
+                console.log('✅ Saved', links.length, 'links to localStorage');
+            } catch (e) {
+                console.error('Error saving all links:', e);
+                alert('Eroare la salvare! Verifică spațiul disponibil în browser.');
+            }
+        }
+
+        function loadAllLinks() {
+            try {
+                const saved = localStorage.getItem(ALL_LINKS_KEY);
+                if (saved) {
+                    const loadedLinks = JSON.parse(saved);
+                    if (Array.isArray(loadedLinks) && loadedLinks.length > 0) {
+                        links = loadedLinks;
+                        console.log('✅ Loaded', links.length, 'links from localStorage');
+                        return true;
+                    }
+                }
+                console.log('📦 No saved links found, using defaults');
+                return false;
+            } catch (e) {
+                console.error('Error loading all links:', e);
+                return false;
+            }
+        }
+
+        // Legacy function for backwards compatibility - remove old keys
         function loadCustomLinks() {
+            // This is now just for migration - load old custom links and merge
+            const CUSTOM_KEY = "customLinks_v2";
             try {
                 const raw = localStorage.getItem(CUSTOM_KEY);
                 if (!raw) return;
@@ -3757,22 +4089,25 @@
                         const exists = links.some(l => l.url === item.url);
                         if (!exists) {
                             links.push(item);
+                            console.log('Migrated custom link:', item.name);
                         }
                     }
                 });
-                renderLinks();
+                
+                // Save migrated data and remove old key
+                if (arr.length > 0) {
+                    saveAllLinks();
+                    localStorage.removeItem(CUSTOM_KEY);
+                    console.log('✅ Migrated', arr.length, 'custom links');
+                }
             } catch (e) {
-                console.error('Error loading custom links:', e);
+                console.error('Error migrating custom links:', e);
             }
         }
 
         function saveCustomLinks() {
-            try {
-                const customLinks = links.slice(ORIGINAL_COUNT);
-                localStorage.setItem(CUSTOM_KEY, JSON.stringify(customLinks));
-            } catch (e) {
-                console.error('Error saving custom links:', e);
-            }
+            // Legacy function - now just calls saveAllLinks
+            saveAllLinks();
         }
     </script>
 </body>
