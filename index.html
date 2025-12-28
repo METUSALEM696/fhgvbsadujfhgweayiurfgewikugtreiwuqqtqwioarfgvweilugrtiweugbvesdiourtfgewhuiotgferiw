@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
@@ -13,11 +13,6 @@
     <meta name="apple-mobile-web-app-title" content="Launcher">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Mobile Drag & Drop Polyfill -->
-    <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/index.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/icons.css">
-    
     <style>
         * {
             margin: 0;
@@ -36,6 +31,216 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+        }
+
+        /* ENHANCED CLOCK DISPLAY STYLES - 80% WIDTH */
+        .enhanced-clock-container {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 12px 30px;
+            margin: 0;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .main-time-display {
+            font-size: 2.8em;
+            font-weight: 900;
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 25px rgba(0, 255, 255, 0.9), 
+                         0 0 50px rgba(0, 255, 255, 0.6),
+                         0 3px 10px rgba(0, 0, 0, 0.8),
+                         0 0 5px rgba(0, 0, 0, 1);
+            margin-bottom: 5px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.12em;
+        }
+
+        .full-date-display {
+            text-align: center;
+            font-size: 1.05em;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9),
+                         0 0 5px rgba(0, 0, 0, 1);
+        }
+
+        .date-details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 5px;
+        }
+
+        .date-detail-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 10px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .date-detail-item:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .date-detail-label {
+            font-size: 0.6em;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 3px;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .date-detail-value {
+            font-size: 1.15em;
+            color: #00ffff;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8),
+                         0 2px 5px rgba(0, 0, 0, 0.8),
+                         0 0 5px rgba(0, 0, 0, 1);
+        }
+
+        /* WEATHER BADGE - EXTREME COMPACT FOR 5% COLUMN */
+        .badge-weather .weather-stack {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            align-items: center;
+            gap: 1px;
+            width: 100%;
+        }
+
+        .badge-weather .weather-main {
+            font-size: 0.9em;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9),
+                         0 0 10px rgba(0, 0, 0, 0.7),
+                         0 0 3px rgba(0, 0, 0, 1);
+            text-align: center;
+        }
+
+        .badge-weather .weather-loc-mini {
+            font-size: 0.65em;
+            font-weight: 700;
+            opacity: 0.98;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9),
+                         0 0 3px rgba(0, 0, 0, 1);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .badge-weather .weather-main { font-size: 0.85em; }
+            .badge-weather .weather-loc-mini { font-size: 0.6em; }
+        }
+
+        /* THREE COLUMN HEADER LAYOUT - 5% 90% 5% EXTREME PROPORTIONS */
+        .header-three-columns {
+            display: grid;
+            grid-template-columns: 5% 90% 5%;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            z-index: 1;
+            margin-top: 10px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 2px;
+        }
+
+        .header-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        .badge-weather,
+        .badge-server {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.85em;
+            width: 100%;
+            gap: 4px;
+        }
+
+        .badge-server div {
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9),
+                         0 0 5px rgba(0, 0, 0, 0.7),
+                         0 0 3px rgba(0, 0, 0, 1);
+        }
+
+        .badge-server #serverStatus {
+            font-weight: 800 !important;
+        }
+
+        .badge-weather:hover,
+        .badge-server:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .header-three-columns {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 0 10px;
+            }
+            
+            .header-left,
+            .header-right {
+                justify-content: center;
+                padding: 0;
+            }
+            
+            .header-center {
+                order: -1;
+            }
+            
+            .enhanced-clock-container {
+                max-width: 100%;
+            }
         }
 
         /* THEME 1: Purple Dream 💜 */
@@ -498,22 +703,23 @@
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 15px;
             position: relative;
             z-index: 1;
         }
 
         .header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 25px 15px;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%);
-            border-radius: 20px;
-            margin-bottom: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
             border: 2px solid rgba(255, 255, 255, 0.5);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
             transition: all 0.5s ease;
+            min-height: 200px;
         }
 
         .header::before {
@@ -533,7 +739,7 @@
         }
 
         .header h1 {
-            font-size: 3.5em;
+            font-size: 2.5em;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -542,6 +748,7 @@
             animation: glow 2s ease-in-out infinite alternate;
             position: relative;
             z-index: 1;
+            font-weight: 900;
         }
 
         @keyframes glow {
@@ -550,28 +757,29 @@
         }
 
         .header .subtitle {
-            font-size: 1.2em;
+            font-size: 0.95em;
             color: var(--text-dim);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 10px;
             flex-wrap: wrap;
             position: relative;
             z-index: 1;
+            margin-top: 5px;
         }
 
         .subtitle .badge {
             background: rgba(255, 255, 255, 0.25);
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 8px 15px;
+            border-radius: 20px;
             border: 2px solid rgba(255, 255, 255, 0.6);
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             transition: all 0.5s ease;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 0.95em;
             backdrop-filter: blur(10px);
         }
 
@@ -1181,47 +1389,11 @@
                 transform: scale(0.9);
                 background: rgba(59, 130, 246, 1);
             }
-            
-            /* Favorite button on mobile */
-            .link-fav-btn {
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                width: 24px;
-                height: 24px;
-                background: rgba(251, 191, 36, 0.9);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0.9em;
-                color: white;
-                z-index: 10;
-                cursor: pointer;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-                pointer-events: auto;
-                user-select: none;
-                -webkit-user-select: none;
-                -webkit-tap-highlight-color: rgba(251, 191, 36, 0.3);
-                touch-action: manipulation;
-            }
-            
-            .link-fav-btn:active {
-                transform: scale(0.9);
-                background: rgba(251, 191, 36, 1);
-            }
-            
-            .link-fav-btn.active {
-                background: rgba(251, 191, 36, 1);
-            }
         }
 
         /* Hide info button on desktop */
         @media (hover: hover) and (pointer: fine) {
             .link-info-btn {
-                display: none;
-            }
-            .link-fav-btn {
                 display: none;
             }
         }
@@ -1416,30 +1588,18 @@
         }
 
         @media (max-width: 768px) {
-            /* Compact header pentru mobil */
-            .header {
-                padding: 15px 10px;
-                margin-bottom: 15px;
-            }
-            
             .header h1 {
-                font-size: 1.5em;
-                margin-bottom: 8px;
-            }
-            
-            .subtitle {
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-            
-            .subtitle .badge {
-                font-size: 0.75em;
-                padding: 6px 10px;
+                font-size: 2em;
             }
             
             .links-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
                 gap: 15px;
+            }
+
+            .subtitle .badge {
+                font-size: 0.9em;
+                padding: 8px 16px;
             }
 
             .container {
@@ -1521,59 +1681,6 @@
                 font-size: 1.2em !important;
             }
         }
-
-        /* Extra optimizări pentru telefoane foarte mici */
-        @media (max-width: 480px) {
-            .header {
-                padding: 20px 10px;
-                margin-bottom: 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.6em; /* Titlu mai mic */
-                margin-bottom: 5px;
-            }
-            
-            .subtitle {
-                gap: 6px;
-            }
-            
-            .subtitle .badge {
-                padding: 6px 12px; /* Butoane mai mici */
-                font-size: 0.8em;
-            }
-            
-            .search-box input {
-                padding: 12px 20px; /* Search bar mai compact */
-                font-size: 0.95em;
-            }
-            
-            .search-box button {
-                padding: 12px 20px;
-            }
-            
-            .links-grid {
-                gap: 10px; /* Spațiu mai mic între iconițe */
-                grid-template-columns: repeat(3, 1fr); /* 3 coloane pe mobil */
-            }
-            
-            .link-card {
-                padding: 15px 10px;
-            }
-            
-            .link-card .link-name {
-                font-size: 0.8em; /* Text mai mic la iconițe */
-            }
-            
-            .link-card img {
-                width: 48px; 
-                height: 48px;
-            }
-            
-            .container {
-                padding: 8px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1613,20 +1720,61 @@
         <!-- Header -->
         <div class="header">
             <h1>🚀 HERCULES MATUSALEM</h1>
-            <div class="subtitle">
-                <span class="badge" onclick="toggleClockModal()">
-                    <i class="fas fa-clock"></i>
-                    <span id="clock">--:--:--</span>
-                </span>
-                <span class="badge" onclick="toggleWeatherModal()" style="cursor: pointer;">
-                    <i class="fas fa-cloud-sun"></i>
-                    <span id="weather">Loading...</span>
-                    <i class="fas fa-sync-alt" onclick="event.stopPropagation(); loadWeather();" style="font-size: 0.8em; margin-left: 5px; cursor: pointer;" title="Refresh weather"></i>
-                </span>
-                <span class="badge" onclick="toggleServerModal()">
-                    <span class="status-dot"></span>
-                    <span id="serverStatus">Checking...</span>
-                </span>
+            
+            <!-- THREE COLUMN LAYOUT: Weather | Clock | Server -->
+            <div class="header-three-columns">
+                <!-- LEFT: Weather Badge -->
+                <div class="header-left">
+                    <span class="badge badge-weather" onclick="toggleWeatherModal()" style="cursor: pointer;" title="Click pentru detalii vreme">
+                        <i class="fas fa-cloud-sun" style="font-size: 1.3em;"></i>
+                        <span class="weather-stack">
+                            <span id="weather" class="weather-main">Loading...</span>
+                            <span id="weatherLocationMini" class="weather-loc-mini">Localizare...</span>
+                        </span>
+                        <i class="fas fa-sync-alt" onclick="event.stopPropagation(); loadWeather(true);" style="font-size: 0.7em; opacity: 0.7; cursor: pointer;" title="Refresh"></i>
+                    </span>
+                </div>
+                
+                <!-- CENTER: Clock -->
+                <div class="header-center">
+                    <div class="enhanced-clock-container">
+                        <div class="main-time-display" id="mainTime">--:--:--</div>
+                        <div class="full-date-display" id="fullDateMain">--</div>
+                        
+                        <div class="date-details-grid">
+                            <div class="date-detail-item">
+                                <div class="date-detail-label">Zi Săptămână</div>
+                                <div class="date-detail-value" id="dayNameMain">--</div>
+                            </div>
+                            <div class="date-detail-item">
+                                <div class="date-detail-label">Săptămâna</div>
+                                <div class="date-detail-value" id="weekNumMain">--</div>
+                            </div>
+                            <div class="date-detail-item">
+                                <div class="date-detail-label">Zi din An</div>
+                                <div class="date-detail-value" id="dayOfYearMain">--</div>
+                            </div>
+                            <div class="date-detail-item">
+                                <div class="date-detail-label">An</div>
+                                <div class="date-detail-value" id="yearMain">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT: Server Badge -->
+                <div class="header-right">
+                    <span class="badge badge-server" onclick="toggleServerModal()">
+                        <i class="fas fa-server" style="font-size: 1.1em; margin-bottom: 1px; opacity: 0.9;"></i>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0px;">
+                            <div style="display: flex; align-items: center; gap: 2px;">
+                                <span class="status-dot" style="width: 5px; height: 5px; border-radius: 50%; background: var(--danger); transition: all 0.3s;"></span>
+                                <div style="font-weight: 800; font-size: 0.85em;" id="serverStatus">Check</div>
+                            </div>
+                            <div style="font-size: 0.55em; opacity: 0.9; font-weight: 600;">Click</div>
+                        </div>
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -2241,32 +2389,6 @@
             });
         }
 
-        // Initialize Mobile Drag & Drop Polyfill
-        (function initMobileDragDrop() {
-            var mobileDragDrop = window.MobileDragDrop;
-            if (mobileDragDrop) {
-                mobileDragDrop.polyfill({
-                    dragImageOffset: { x: 0, y: 0 },
-                    // Permite drag doar dacă atingerea nu e pe un buton
-                    dragStartConditionOverride: function(event) {
-                        return !event.target.closest('.link-info-btn') && 
-                               !event.target.closest('.link-fav-btn');
-                    }
-                });
-                
-                // Fix pentru scroll în timpul drag-ului
-                document.addEventListener('touchmove', function(e) {
-                    if (document.querySelector('.dnd-poly-drag-image')) {
-                        e.preventDefault();
-                    }
-                }, { passive: false });
-                
-                console.log('✅ Mobile Drag & Drop enabled with button override');
-            } else {
-                console.log('⚠️ Mobile Drag & Drop polyfill not loaded');
-            }
-        })();
-
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize theme system
@@ -2502,7 +2624,6 @@
                 card.innerHTML = `
                     ${isFavorite ? '<div class="favorite-star">⭐</div>' : ''}
                     <div class="link-info-btn" title="Info">ℹ️</div>
-                    <div class="link-fav-btn ${isFavorite ? 'active' : ''}" title="Favorite">${isFavorite ? '★' : '☆'}</div>
                     <img src="https://www.google.com/s2/favicons?sz=64&domain=${domain}" 
                          alt="${link.name}" 
                          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>'">
@@ -2533,20 +2654,6 @@
                     // Add both touch and click events for maximum compatibility
                     infoBtn.addEventListener('touchend', handleInfoClick, { passive: false });
                     infoBtn.addEventListener('click', handleInfoClick);
-                }
-                
-                // Mobile: Favorite button toggles favorite
-                const favBtn = card.querySelector('.link-fav-btn');
-                if (favBtn) {
-                    const handleFavClick = (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleFavorite(link.url);
-                    };
-                    
-                    // Add both touch and click events
-                    favBtn.addEventListener('touchend', handleFavClick, { passive: false });
-                    favBtn.addEventListener('click', handleFavClick);
                 }
                 
                 // Close preview when clicking outside (mobile)
@@ -2655,7 +2762,6 @@
             draggedElement = e.target;
             draggedIndex = parseInt(e.target.dataset.index);
             e.target.style.opacity = '0.5';
-            e.target.setAttribute('dragging', 'true'); // For mobile polyfill
             e.dataTransfer.effectAllowed = 'move';
             playSound('clickSound', 0.2);
         }
@@ -2707,10 +2813,9 @@
         }
         
         function handleDragEnd(e) {
-            e.target.style.opacity = '';
-            e.target.removeAttribute('dragging'); // Remove mobile feedback
+            e.target.style.opacity = '1';
             
-            // Remove transform from all cards
+            // Remove all drag effects
             document.querySelectorAll('.link-card').forEach(card => {
                 card.style.transform = '';
             });
@@ -2718,7 +2823,6 @@
             draggedElement = null;
             draggedIndex = null;
         }
-
 
         // Filter buttons
         // ===== IMPROVED SEARCH WITH FUZZY MATCHING =====
@@ -2795,8 +2899,39 @@
         // Clock
         function updateClock() {
             const now = new Date();
-            const time = now.toLocaleTimeString('ro-RO');
-            document.getElementById('clock').textContent = time;
+            
+            // Main time display (large)
+            const time = now.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('mainTime').textContent = time;
+            
+            // Full date display
+            const fullDateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('fullDateMain').textContent = now.toLocaleDateString('ro-RO', fullDateOptions);
+            
+            // Day name
+            const daysRo = ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'];
+            document.getElementById('dayNameMain').textContent = daysRo[now.getDay()];
+            
+            // Week number (ISO 8601)
+            function getWeekNumber(d) {
+                d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+                d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+                const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+                const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+                return weekNo;
+            }
+            const weekNumber = getWeekNumber(now);
+            document.getElementById('weekNumMain').textContent = `Săpt. ${weekNumber}`;
+            
+            // Day of year
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            document.getElementById('dayOfYearMain').textContent = `Ziua ${dayOfYear}`;
+            
+            // Year
+            document.getElementById('yearMain').textContent = now.getFullYear();
             
             // Update modal clock if it's open
             if (document.getElementById('clockModal').classList.contains('show')) {
@@ -3194,112 +3329,330 @@
         }
 
         // Weather
+        // Weather
         let weatherData = null;
 
-        async function loadWeather() {
-            try {
-                console.log('Loading weather...');
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-                
-                const response = await fetch('https://wttr.in/Shropshire?format=j1', {
-                    signal: controller.signal,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log('Weather data loaded:', data);
-                weatherData = data;
-                
-                const temp = data.current_condition[0].temp_C;
-                const desc = data.current_condition[0].weatherDesc[0].value;
-                document.getElementById('weather').textContent = `${temp}°C - ${desc}`;
-                
-                // Update modal with detailed info
-                updateWeatherModal(data);
-            } catch (error) {
-                console.error('Weather loading error:', error);
-                document.getElementById('weather').textContent = 'Click pentru detalii';
-                
-                // Try alternative method or show cached/default data
-                loadWeatherAlternative();
-            }
+        const WEATHER_LOC_CACHE_KEY = "weatherLocCache_v2";
+        const WEATHER_DATA_CACHE_KEY = "weatherDataCache_v2";
+
+        function _safeJSONParse(s) {
+            try { return JSON.parse(s); } catch { return null; }
         }
 
-        async function loadWeatherAlternative() {
+        function _nowIso() {
+            return new Date().toISOString();
+        }
+
+        function _fmtTimeShort(d = new Date()) {
+            return d.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function _degToCompass(deg) {
+            if (typeof deg !== "number" || Number.isNaN(deg)) return "";
+            const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+            return dirs[Math.round(deg / 22.5) % 16];
+        }
+
+        function _weatherCodeToRo(code) {
+            // Open-Meteo weather codes (simplified Romanian mapping)
+            const m = {
+                0: "Senin",
+                1: "Mai mult senin",
+                2: "Parțial noros",
+                3: "Înnorat",
+                45: "Ceață",
+                48: "Ceață cu depuneri",
+                51: "Burniță slabă",
+                53: "Burniță",
+                55: "Burniță puternică",
+                56: "Burniță înghețată slabă",
+                57: "Burniță înghețată",
+                61: "Ploaie slabă",
+                63: "Ploaie",
+                65: "Ploaie puternică",
+                66: "Ploaie înghețată slabă",
+                67: "Ploaie înghețată",
+                71: "Ninsoare slabă",
+                73: "Ninsoare",
+                75: "Ninsoare puternică",
+                77: "Măzăriche",
+                80: "Averse slabe",
+                81: "Averse",
+                82: "Averse puternice",
+                85: "Averse de ninsoare slabe",
+                86: "Averse de ninsoare",
+                95: "Furtună",
+                96: "Furtună cu grindină",
+                99: "Furtună cu grindină puternică"
+            };
+            return m[code] || "Vreme variabilă";
+        }
+
+        async function getBestLocation(force = false) {
+            // 1) cache (6h)
             try {
-                console.log('Trying alternative weather source...');
-                // Using a simpler wttr.in format
-                const response = await fetch('https://wttr.in/Shropshire?format=%t+%C');
-                const text = await response.text();
-                console.log('Alternative weather:', text);
-                
-                if (text && text.length > 0 && text.length < 100) {
-                    document.getElementById('weather').textContent = text.trim();
+                const cached = _safeJSONParse(localStorage.getItem(WEATHER_LOC_CACHE_KEY) || "");
+                if (!force && cached && cached.lat && cached.lon && cached.ts) {
+                    const ageMs = Date.now() - new Date(cached.ts).getTime();
+                    if (ageMs >= 0 && ageMs < 6 * 60 * 60 * 1000) return cached;
                 }
+            } catch {}
+
+            // 2) GPS (best precision)
+            try {
+                if (navigator.geolocation) {
+                    const pos = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: true,
+                            timeout: 8000,
+                            maximumAge: 5 * 60 * 1000
+                        });
+                    });
+                    const loc = {
+                        lat: Number(pos.coords.latitude),
+                        lon: Number(pos.coords.longitude),
+                        label: "Locația ta (GPS)",
+                        source: "gps",
+                        ts: _nowIso()
+                    };
+                    localStorage.setItem(WEATHER_LOC_CACHE_KEY, JSON.stringify(loc));
+                    return loc;
+                }
+            } catch (e) {
+                console.warn("Geolocation not available/denied:", e);
+            }
+
+            // 3) IP-based fallback (good enough if GPS denied)
+            try {
+                const r = await fetch("https://ipapi.co/json/", { cache: "no-store" });
+                if (r.ok) {
+                    const j = await r.json();
+                    const loc = {
+                        lat: Number(j.latitude),
+                        lon: Number(j.longitude),
+                        label: [j.city, j.region, j.country_name].filter(Boolean).join(", "),
+                        source: "ip",
+                        ts: _nowIso()
+                    };
+                    if (loc.lat && loc.lon) {
+                        localStorage.setItem(WEATHER_LOC_CACHE_KEY, JSON.stringify(loc));
+                        return loc;
+                    }
+                }
+            } catch (e) {
+                console.warn("IP location failed:", e);
+            }
+
+            // 4) hard fallback
+            return { lat: 52.7073, lon: -2.7547, label: "Shropshire, UK", source: "fallback", ts: _nowIso() };
+        }
+
+        async function fetchWttr(lat, lon, signal) {
+            const url = `https://wttr.in/${lat},${lon}?format=j1`;
+            const res = await fetch(url, { signal, headers: { "Accept": "application/json" } });
+            if (!res.ok) throw new Error(`wttr HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        function normalizeFromWttr(data) {
+            const current = data?.current_condition?.[0];
+            const astronomy = data?.weather?.[0]?.astronomy?.[0];
+            const area = data?.nearest_area?.[0];
+            const locParts = [
+                area?.areaName?.[0]?.value,
+                area?.region?.[0]?.value,
+                area?.country?.[0]?.value
+            ].filter(Boolean);
+            const location = locParts.join(", ");
+
+            return {
+                source: "wttr.in",
+                location: location || "Locația ta",
+                tempC: Number(current?.temp_C ?? NaN),
+                feelsLikeC: Number(current?.FeelsLikeC ?? NaN),
+                humidity: Number(current?.humidity ?? NaN),
+                windKmh: Number(current?.windspeedKmph ?? NaN),
+                windDir: (current?.winddir16Point || "").trim(),
+                pressureHpa: Number(current?.pressure ?? NaN),
+                visibilityKm: Number(current?.visibility ?? NaN),
+                cloudcover: Number(current?.cloudcover ?? NaN),
+                description: (current?.weatherDesc?.[0]?.value || "").trim() || "Vreme variabilă",
+                sunrise: astronomy?.sunrise || "--:--",
+                sunset: astronomy?.sunset || "--:--",
+                updatedAtIso: _nowIso()
+            };
+        }
+
+        async function fetchOpenMeteo(lat, lon, signal) {
+            const url =
+                `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}` +
+                `&current=temperature_2m,relative_humidity_2m,apparent_temperature,pressure_msl,cloud_cover,wind_speed_10m,wind_direction_10m,weather_code` +
+                `&daily=sunrise,sunset&timezone=auto`;
+            const res = await fetch(url, { signal, headers: { "Accept": "application/json" } });
+            if (!res.ok) throw new Error(`open-meteo HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        function normalizeFromOpenMeteo(data, fallbackLabel = "") {
+            const c = data?.current || {};
+            const sunriseIso = data?.daily?.sunrise?.[0];
+            const sunsetIso = data?.daily?.sunset?.[0];
+
+            const sunrise = sunriseIso ? new Date(sunriseIso).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' }) : "--:--";
+            const sunset = sunsetIso ? new Date(sunsetIso).toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' }) : "--:--";
+
+            const code = Number(c.weather_code ?? NaN);
+            const desc = _weatherCodeToRo(code);
+
+            const windDir = _degToCompass(Number(c.wind_direction_10m ?? NaN));
+
+            return {
+                source: "open-meteo.com",
+                location: (fallbackLabel || "Locația ta").trim(),
+                tempC: Number(c.temperature_2m ?? NaN),
+                feelsLikeC: Number(c.apparent_temperature ?? NaN),
+                humidity: Number(c.relative_humidity_2m ?? NaN),
+                windKmh: Number(c.wind_speed_10m ?? NaN),
+                windDir,
+                pressureHpa: Number(c.pressure_msl ?? NaN),
+                visibilityKm: NaN,
+                cloudcover: Number(c.cloud_cover ?? NaN),
+                description: desc,
+                sunrise,
+                sunset,
+                updatedAtIso: _nowIso()
+            };
+        }
+
+        function applyWeatherToUI(w) {
+            if (!w) return;
+            weatherData = w;
+
+            // Header line
+            const main = (Number.isFinite(w.tempC) ? `${Math.round(w.tempC)}°C` : "--°C") + " - " + (w.description || "Vreme");
+            const weatherEl = document.getElementById("weather");
+            if (weatherEl) weatherEl.textContent = main;
+
+            const locMini = document.getElementById("weatherLocationMini");
+            if (locMini) locMini.textContent = w.location || "--";
+
+            updateWeatherModal(w);
+
+            // Cache weather data (15 min)
+            try {
+                localStorage.setItem(WEATHER_DATA_CACHE_KEY, JSON.stringify({ ...w, ts: _nowIso() }));
+            } catch {}
+        }
+
+        async function loadWeather(force = false) {
+            const weatherEl = document.getElementById("weather");
+            const locMini = document.getElementById("weatherLocationMini");
+
+            if (weatherEl) weatherEl.textContent = "Se încarcă...";
+            if (locMini) locMini.textContent = "Localizare...";
+
+            // If offline, try cache immediately
+            if (!navigator.onLine) {
+                const cached = _safeJSONParse(localStorage.getItem(WEATHER_DATA_CACHE_KEY) || "");
+                if (cached) {
+                    cached.source = (cached.source || "cache") + " (offline)";
+                    applyWeatherToUI(cached);
+                    return;
+                }
+            }
+
+            const loc = await getBestLocation(force);
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+            try {
+                // Try wttr.in first (keeps same style + returns nearest_area for exact city)
+                const wttr = await fetchWttr(loc.lat, loc.lon, controller.signal);
+                const normalized = normalizeFromWttr(wttr);
+
+                // If we only had a generic label, prefer wttr nearest-area label
+                if (normalized.location && normalized.location !== "Locația ta") {
+                    try {
+                        const cachedLoc = { ...loc, label: normalized.location, ts: _nowIso() };
+                        localStorage.setItem(WEATHER_LOC_CACHE_KEY, JSON.stringify(cachedLoc));
+                    } catch {}
+                }
+
+                applyWeatherToUI(normalized);
             } catch (error) {
-                console.error('Alternative weather failed:', error);
-                // Use demo/test data
-                useDemoWeatherData();
+                console.warn("Weather (wttr) failed, trying open-meteo:", error);
+
+                try {
+                    const om = await fetchOpenMeteo(loc.lat, loc.lon, controller.signal);
+                    const normalized = normalizeFromOpenMeteo(om, loc.label || "");
+                    applyWeatherToUI(normalized);
+                } catch (error2) {
+                    console.error("Weather (open-meteo) failed:", error2);
+
+                    // Last resort: demo data or cached
+                    const cached = _safeJSONParse(localStorage.getItem(WEATHER_DATA_CACHE_KEY) || "");
+                    if (cached) {
+                        cached.source = (cached.source || "cache") + " (cache)";
+                        applyWeatherToUI(cached);
+                    } else {
+                        useDemoWeatherData();
+                    }
+                }
+            } finally {
+                clearTimeout(timeoutId);
             }
         }
 
         function useDemoWeatherData() {
             console.log('Using demo weather data');
-            document.getElementById('weather').textContent = '3°C - Sunny (Demo)';
-            
-            // Create demo data structure
-            weatherData = {
-                current_condition: [{
-                    temp_C: "3",
-                    FeelsLikeC: "-1",
-                    humidity: "82",
-                    windspeedKmph: "13",
-                    winddir16Point: "NE",
-                    pressure: "1033",
-                    visibility: "10",
-                    cloudcover: "25",
-                    weatherDesc: [{ value: "Sunny" }]
-                }],
-                weather: [{
-                    astronomy: [{
-                        sunrise: "08:21 AM",
-                        sunset: "03:59 PM"
-                    }]
-                }]
+            const demo = {
+                source: "demo",
+                location: "Demo",
+                tempC: 3,
+                feelsLikeC: -1,
+                humidity: 82,
+                windKmh: 13,
+                windDir: "NE",
+                pressureHpa: 1033,
+                visibilityKm: 10,
+                cloudcover: 25,
+                description: "Senin",
+                sunrise: "08:21",
+                sunset: "15:59",
+                updatedAtIso: _nowIso()
             };
-            
-            updateWeatherModal(weatherData);
+            applyWeatherToUI(demo);
         }
 
-        function updateWeatherModal(data) {
-            if (!data) return;
-            
+        function updateWeatherModal(w) {
+            if (!w) return;
+
             try {
-                const current = data.current_condition[0];
-                const astronomy = data.weather[0].astronomy[0];
-                
                 // Main temperature
-                document.getElementById('modalMainTemp').textContent = `${current.temp_C}°C`;
-                document.getElementById('modalLocation').textContent = 'Shropshire, UK';
-                document.getElementById('modalDescription').textContent = current.weatherDesc[0].value;
-                
+                document.getElementById('modalMainTemp').textContent = Number.isFinite(w.tempC) ? `${Math.round(w.tempC)}°C` : '--°C';
+                document.getElementById('modalLocation').textContent = w.location || 'Locație necunoscută';
+                document.getElementById('modalDescription').textContent = w.description || '--';
+
+                const updated = w.updatedAtIso ? new Date(w.updatedAtIso) : new Date();
+                const updLine = `Actualizat: ${_fmtTimeShort(updated)} • Sursă: ${w.source || "—"}`;
+                const updEl = document.getElementById('modalUpdated');
+                if (updEl) updEl.textContent = updLine;
+
                 // Detailed info
-                document.getElementById('feelsLike').textContent = `${current.FeelsLikeC}°C`;
-                document.getElementById('humidity').textContent = `${current.humidity}%`;
-                document.getElementById('wind').textContent = `${current.windspeedKmph} km/h ${current.winddir16Point}`;
-                document.getElementById('pressure').textContent = `${current.pressure} hPa`;
-                document.getElementById('visibility').textContent = `${current.visibility} km`;
-                document.getElementById('sunrise').textContent = astronomy.sunrise;
-                document.getElementById('sunset').textContent = astronomy.sunset;
-                document.getElementById('cloudcover').textContent = `${current.cloudcover}%`;
+                document.getElementById('feelsLike').textContent = Number.isFinite(w.feelsLikeC) ? `${Math.round(w.feelsLikeC)}°C` : '--°C';
+                document.getElementById('humidity').textContent = Number.isFinite(w.humidity) ? `${Math.round(w.humidity)}%` : '--%';
+
+                const windParts = [];
+                if (Number.isFinite(w.windKmh)) windParts.push(`${Math.round(w.windKmh)} km/h`);
+                if (w.windDir) windParts.push(w.windDir);
+                document.getElementById('wind').textContent = windParts.length ? windParts.join(" ") : '-- km/h';
+
+                document.getElementById('pressure').textContent = Number.isFinite(w.pressureHpa) ? `${Math.round(w.pressureHpa)} hPa` : '-- hPa';
+                document.getElementById('visibility').textContent = Number.isFinite(w.visibilityKm) ? `${Math.round(w.visibilityKm)} km` : '-- km';
+                document.getElementById('sunrise').textContent = w.sunrise || '--:--';
+                document.getElementById('sunset').textContent = w.sunset || '--:--';
+                document.getElementById('cloudcover').textContent = Number.isFinite(w.cloudcover) ? `${Math.round(w.cloudcover)}%` : '--%';
             } catch (error) {
                 console.error('Error updating weather modal:', error);
             }
@@ -3318,7 +3671,9 @@
                     // Try to load weather again if it failed before
                     document.getElementById('modalMainTemp').textContent = 'Loading...';
                     document.getElementById('modalDescription').textContent = 'Fetching weather data...';
-                    loadWeather();
+                    const updEl = document.getElementById('modalUpdated');
+                    if (updEl) updEl.textContent = '';
+                    loadWeather(false);
                 }
             }
         }
