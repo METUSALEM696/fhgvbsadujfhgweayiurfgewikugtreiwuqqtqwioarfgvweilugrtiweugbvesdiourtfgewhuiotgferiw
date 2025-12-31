@@ -4307,15 +4307,16 @@
         function exportLinks() {
             try {
                 // Create export object with all data
-                const exportData = {
-                    version: "1.0",
-                    exportDate: new Date().toISOString(),
-                    links: links,
-                    favorites: [...favorites],
-                    customOrder: customOrder,
-                    visitStats: visitStats,
-                    categories: CATEGORIES.map(c => c.key)
-                };
+              const exportData = {
+    version: "1.0",
+    exportDate: new Date().toISOString(),
+    links: links,
+    favorites: [...favorites],
+    customOrder: customOrder,
+    visitStats: visitStats,
+    searchHistory: getSearchHistory(),  // ✅ ADĂUGAT
+    categories: CATEGORIES.map(c => c.key)
+};
 
                 // Convert to JSON
                 const jsonString = JSON.stringify(exportData, null, 2);
@@ -4375,43 +4376,34 @@
                     }
 
                     // Confirm import
-                    const confirmMsg = `📤 Import Link-uri\n\n` +
-                        `Fișier: ${file.name}\n` +
-                        `Data export: ${importData.exportDate ? new Date(importData.exportDate).toLocaleString('ro-RO') : 'Necunoscută'}\n` +
-                        `Link-uri: ${importData.links.length}\n` +
-                        `Favorite: ${importData.favorites ? importData.favorites.length : 0}\n\n` +
-                        `⚠️ Atenție: Toate link-urile curente vor fi ÎNLOCUITE!\n\n` +
-                        `Continui?`;
+                 const confirmMsg = `📤 Import Link-uri\n\n` +
+    `Fișier: ${file.name}\n` +
+    `Data export: ${importData.exportDate ? new Date(importData.exportDate).toLocaleString('ro-RO') : 'Necunoscută'}\n` +
+    `Link-uri: ${importData.links.length}\n` +
+    `Favorite: ${importData.favorites ? importData.favorites.length : 0}\n` +
+    `Căutări: ${importData.searchHistory ? importData.searchHistory.length : 0}\n\n` +  // ✅ ADĂUGAT
+    `⚠️ Atenție: Toate link-urile curente vor fi ÎNLOCUITE!\n\n` +
+    `Continui?`;
 
                     if (!confirm(confirmMsg)) {
                         event.target.value = ''; // Reset input
                         return;
                     }
 
-                    // Import links
-                    links = importData.links;
-                    saveAllLinks();
-
-                    // Import favorites
-                    if (importData.favorites && Array.isArray(importData.favorites)) {
-                        favorites = new Set(importData.favorites);
-                        saveFavorites();
-                    }
-
-                    // Import custom order
-                    if (importData.customOrder && Array.isArray(importData.customOrder)) {
-                        customOrder = importData.customOrder;
-                        saveCustomOrder();
-                    }
-
                     // Import visit stats
-                    if (importData.visitStats && typeof importData.visitStats === 'object') {
-                        visitStats = importData.visitStats;
-                        saveVisitStats();
-                    }
+if (importData.visitStats && typeof importData.visitStats === 'object') {
+    visitStats = importData.visitStats;
+    saveVisitStats();
+}
 
-                    // Re-render
-                    renderLinks();
+// Import search history  // ✅ ADĂUGAT
+if (importData.searchHistory && Array.isArray(importData.searchHistory)) {
+    saveSearchHistory(importData.searchHistory);
+    renderSearchHistory();
+}
+
+// Re-render
+renderLinks();
 
                     playSound('permanentSound', 0.5);
                     showNotification(`✅ Import complet! ${links.length} link-uri restaurate`, 'success');
