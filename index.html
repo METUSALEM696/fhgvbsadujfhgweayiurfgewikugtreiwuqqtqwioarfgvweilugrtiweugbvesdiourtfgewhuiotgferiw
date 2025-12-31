@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, minimum-scale=0.7, user-scalable=no">
-      <title>🚀 HERCULES MATUSALEM - Command Center</title>
+    <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
@@ -1770,7 +1771,7 @@
                 max-width: 100%;
                 padding: 8px 15px;
                 margin: 0;
-                height: 130px;
+                height: 150px;
                 box-sizing: border-box;
             }
             
@@ -1889,6 +1890,19 @@
         🎨
     </button>
 
+    <!-- Export Button -->
+    <button id="exportButton" style="position: fixed; bottom: 240px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="exportLinks()" title="Export Link-uri">
+        📥
+    </button>
+
+    <!-- Import Button -->
+    <button id="importButton" style="position: fixed; bottom: 310px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(245, 158, 11, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="document.getElementById('importFileInput').click()" title="Import Link-uri">
+        📤
+    </button>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importLinks(event)">
+
     <!-- Offline Indicator -->
     <div class="offline-indicator" id="offlineIndicator">
         📡 Offline Mode - Unele funcții pot fi limitate
@@ -1897,7 +1911,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1><span class="header-emoji">🚀</span>  FAMILIA STREANGA CDȘ</h1>
+           <h1><span class="header-emoji">🚀</span>  FAMILIA STREANGA CDȘ</h1>
             
             <!-- THREE COLUMN LAYOUT: Weather | Clock | Server -->
             <div class="header-three-columns">
@@ -2540,7 +2554,7 @@
             { name: "Filelist", url: "https://filelist.io/login.php", category: "fisiere" },
             { name: "DivX Filme", url: "https://divxfilmeonline.tv/filme-online/", category: "filme" },
             { name: "IMDB", url: "https://www.imdb.com/watchlist", category: "filme" },
-            { name: "FilmeHD API", url: "https://filmehd.se/", category: "filme" },
+            { name: "FilmeHD API", url: "https://filmehd.se/wp-json", category: "filme" },
             { name: "Vox Filme", url: "https://voxfilmeonline.biz/", category: "filme" },
             { name: "JustWatch", url: "https://www.justwatch.com/ro/filme", category: "filme" },
             { name: "Portalul TV", url: "https://portalultautv.biz/", category: "filme" },
@@ -2595,8 +2609,7 @@
             { name: "Ginger", url: "https://www.gingersoftware.com/", category: "writing" },
             { name: "Hemingway", url: "http://www.hemingwayapp.com/", category: "writing" },
             { name: "GrammarCheck", url: "https://www.grammarcheck.net/", category: "writing" },
-            { name: "Scribbr", url: "https://www.scribbr.com/", category: "writing" },
-            { name: "whatsapp", url: "https://web.whatsapp.com/", category: "writing" },
+            { name: "Scribbr", url: "https://www.scribbr.com/", category: "writing" }
         ];
 
         // Favorites and Drag-Drop Management
@@ -4288,6 +4301,137 @@
         function saveCustomLinks() {
             // Legacy function - now just calls saveAllLinks
             saveAllLinks();
+        }
+
+        // ===== EXPORT/IMPORT SYSTEM =====
+        function exportLinks() {
+            try {
+                // Create export object with all data
+                const exportData = {
+                    version: "1.0",
+                    exportDate: new Date().toISOString(),
+                    links: links,
+                    favorites: [...favorites],
+                    customOrder: customOrder,
+                    visitStats: visitStats,
+                    categories: CATEGORIES.map(c => c.key)
+                };
+
+                // Convert to JSON
+                const jsonString = JSON.stringify(exportData, null, 2);
+                
+                // Create blob
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                
+                // Create download link
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                
+                // Filename with timestamp
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+                a.download = `hercules-links-backup-${timestamp}.json`;
+                
+                // Trigger download
+                document.body.appendChild(a);
+                a.click();
+                
+                // Cleanup
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+                
+                playSound('permanentSound', 0.4);
+                showNotification(`📥 Export complet! ${links.length} link-uri salvate`, 'success');
+                
+                console.log('✅ Exported', links.length, 'links');
+            } catch (e) {
+                console.error('Export error:', e);
+                alert('❌ Eroare la export! Verifică consola pentru detalii.');
+            }
+        }
+
+        function importLinks(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.name.endsWith('.json')) {
+                alert('⚠️ Te rog selectează un fișier JSON valid!');
+                event.target.value = ''; // Reset input
+                return;
+            }
+
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const importData = JSON.parse(e.target.result);
+                    
+                    // Validate import data
+                    if (!importData || !importData.links || !Array.isArray(importData.links)) {
+                        throw new Error('Format JSON invalid! Lipsesc link-urile.');
+                    }
+
+                    // Confirm import
+                    const confirmMsg = `📤 Import Link-uri\n\n` +
+                        `Fișier: ${file.name}\n` +
+                        `Data export: ${importData.exportDate ? new Date(importData.exportDate).toLocaleString('ro-RO') : 'Necunoscută'}\n` +
+                        `Link-uri: ${importData.links.length}\n` +
+                        `Favorite: ${importData.favorites ? importData.favorites.length : 0}\n\n` +
+                        `⚠️ Atenție: Toate link-urile curente vor fi ÎNLOCUITE!\n\n` +
+                        `Continui?`;
+
+                    if (!confirm(confirmMsg)) {
+                        event.target.value = ''; // Reset input
+                        return;
+                    }
+
+                    // Import links
+                    links = importData.links;
+                    saveAllLinks();
+
+                    // Import favorites
+                    if (importData.favorites && Array.isArray(importData.favorites)) {
+                        favorites = new Set(importData.favorites);
+                        saveFavorites();
+                    }
+
+                    // Import custom order
+                    if (importData.customOrder && Array.isArray(importData.customOrder)) {
+                        customOrder = importData.customOrder;
+                        saveCustomOrder();
+                    }
+
+                    // Import visit stats
+                    if (importData.visitStats && typeof importData.visitStats === 'object') {
+                        visitStats = importData.visitStats;
+                        saveVisitStats();
+                    }
+
+                    // Re-render
+                    renderLinks();
+
+                    playSound('permanentSound', 0.5);
+                    showNotification(`✅ Import complet! ${links.length} link-uri restaurate`, 'success');
+                    
+                    console.log('✅ Imported', links.length, 'links from', file.name);
+
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert(`❌ Eroare la import!\n\n${error.message}\n\nVerifică că fișierul JSON este valid.`);
+                } finally {
+                    event.target.value = ''; // Reset input for next import
+                }
+            };
+
+            reader.onerror = function() {
+                alert('❌ Eroare la citirea fișierului!');
+                event.target.value = ''; // Reset input
+            };
+
+            reader.readAsText(file);
         }
     </script>
 </body>
