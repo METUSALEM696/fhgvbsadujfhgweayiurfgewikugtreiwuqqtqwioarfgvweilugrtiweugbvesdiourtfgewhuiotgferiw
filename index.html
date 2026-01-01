@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -192,9 +193,9 @@
         }
 
         /* THREE COLUMN HEADER LAYOUT - 5% 90% 5% EXTREME PROPORTIONS */
-        .header-three-columns {
-            display: grid;
-            grid-template-columns: 5% 90% 5%;
+        .header-two-columns {
+    display: grid;
+   grid-template-columns: 1fr;  /* ✅ O singură coloană centrală! */
             align-items: center;
             gap: 5px;
             position: relative;
@@ -226,47 +227,11 @@
             padding: 0;
         }
 
-        .badge-weather,
-        .badge-server {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 0.85em;
-            width: 100%;
-            gap: 4px;
-            height: 150px;
-            box-sizing: border-box;
-            justify-content: center;
-        }
-
-        .badge-server div {
-            color: #ffffff;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9),
-                         0 0 5px rgba(0, 0, 0, 0.7),
-                         0 0 3px rgba(0, 0, 0, 1);
-        }
-
-        .badge-server #serverStatus {
-            font-weight: 800 !important;
-        }
-
-        .badge-weather:hover,
-        .badge-server:hover {
-            background: rgba(255, 255, 255, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
+        
 
         /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .header-three-columns {
+       @media (max-width: 1200px) {
+    .header-two-columns {
                 grid-template-columns: 1fr;
                 gap: 10px;
                 padding: 0 10px;
@@ -1727,7 +1692,8 @@
         .add-site-btn {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+          
+left: 30px;  /* ✅ CORECT - colț stânga-jos */
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, #fbbf24, #f97316);
@@ -1873,7 +1839,157 @@
             }
         }
 
-        body {  ← Stilurile body încep aici
+
+/* ===== PASSWORD GENERATOR TEXT FIX ===== */
+       /* ===== FORCE DARK MODALS - PASSWORD & NOTES ===== */
+/* Password Generator Modal */
+#passwordModal .modal-content {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.98) 0%, rgba(219, 39, 119, 0.98) 100%) !important;
+}
+
+#passwordModal .modal-content * {
+    color: white !important;
+}
+
+#passwordModal input[type="text"] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: white !important;
+}
+
+#passwordModal input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+#passwordModal input[type="range"] {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+#passwordModal label {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+#passwordModal #lengthValue {
+    color: #00ffff !important;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    font-weight: 900 !important;
+}
+
+#passwordModal #strengthText {
+    font-weight: 700 !important;
+    text-shadow: 0 0 8px currentColor;
+}
+
+
+/* ===== NOTES/TODO SYSTEM ===== */
+        #notesModal .modal-content {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(219, 39, 119, 0.95) 100%) !important;
+        }
+        
+        #notesModal .modal-content h2 {
+            color: white !important;
+        }
+        
+        #notesModal input[type="text"] {
+            color: white !important;
+        }
+        
+        #notesModal input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        #notesModal label {
+            color: white !important;
+        }
+        
+        #notesModal button {
+            color: white !important;
+        }
+        
+        .note-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .note-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .note-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+        
+        .note-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #10b981;
+        }
+        
+        .note-text {
+            flex: 1;
+            color: white !important;
+            font-size: 0.95em;
+            word-break: break-word;
+        }
+        
+        .note-text div {
+            color: white !important;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .note-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white !important;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+        
+        .note-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .note-btn.delete {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+        
+        .note-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.5);
+        }
+        
+        /* Stats numbers */
+        #notesModal #totalNotes,
+        #notesModal #completedTodos,
+        #notesModal #pendingTodos {
+            color: inherit !important;
+        }
+        
+        /* Filter buttons text */
+        #notesModal button span {
+            color: white !important;
+        }
+        body {
     </style>
 </head>
 <body>
@@ -1895,26 +2011,36 @@
     <audio id="serverBeepSound" preload="auto"><source src="ecg-machine-beep-gfx-sounds-1-1-00-00.mp3" type="audio/mpeg"></audio>
     
     <!-- Sound Control Toggle -->
-    <button id="soundToggle" style="position: fixed; bottom: 100px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #06b6d4); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="toggleSound()" title="Toggle Sound">
+    <button id="soundToggle" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #06b6d4); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="toggleSound()" title="Toggle Sound">
         🔊
     </button>
 <!-- Verification Button -->
-<button id="verifyButton" style="position: fixed; bottom: 240px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="showVerificationDashboard()" title="Verificare Date">
+<button id="verifyButton" style="position: fixed; bottom: 310px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="showVerificationDashboard()" title="Verificare Date">
     🔍
 </button>
 
+<!-- Password Generator Button -->
+    <button id="passwordGenButton" style="position: fixed; bottom: 240px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #ec4899, #be185d); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(236, 72, 153, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="openPasswordGenerator()" title="Generator Parole">
+        🔐
+    </button>
+
+
+<!-- Notes/Todo Button -->
+    <button id="notesButton" style="position: fixed; bottom: 170px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(251, 191, 36, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="openNotesModal()" title="Notes & Todo">
+        📝
+    </button>
     <!-- Theme Toggle Button -->
-    <button id="themeToggle" style="position: fixed; bottom: 170px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="cycleTheme()" title="Change Theme">
+    <button id="themeToggle" style="position: fixed; bottom: 100px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="cycleTheme()" title="Change Theme">
         🎨
     </button>
 
     <!-- Export Button -->
-    <button id="exportButton" style="position: fixed; bottom: 380px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="exportLinks()" title="Export Link-uri">
+    <button id="exportButton" style="position: fixed; bottom: 450px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="exportLinks()" title="Export Link-uri">
         📥
     </button>
 
     <!-- Import Button -->
-   <button id="importButton" style="position: fixed; bottom: 450px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(245, 158, 11, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="document.getElementById('importFileInput').click()" title="Import Link-uri">
+   <button id="importButton" style="position: fixed; bottom: 520px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(245, 158, 11, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="document.getElementById('importFileInput').click()" title="Import Link-uri">
         📤
     </button>
 
@@ -1926,24 +2052,24 @@
         📡 Offline Mode - Unele funcții pot fi limitate
     </div>
     
+
+<!-- Weather Button -->
+<button id="weatherButton" style="position: fixed; bottom: 380px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #06b6d4, #0ea5e9); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(6, 182, 212, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="toggleWeatherModal()" title="Informații Vreme">
+    ☁️
+</button>
+
+
+
+
     <div class="container">
         <!-- Header -->
         <div class="header">
            <h1><span class="header-emoji">🚀</span>  FAMILIA STREANGA CDȘ</h1>
             
             <!-- THREE COLUMN LAYOUT: Weather | Clock | Server -->
-            <div class="header-three-columns">
+            <div class="header-two-columns">
                 <!-- LEFT: Weather Badge -->
-                <div class="header-left">
-                    <span class="badge badge-weather" onclick="toggleWeatherModal()" style="cursor: pointer;" title="Click pentru detalii vreme">
-                        <i class="fas fa-cloud-sun" style="font-size: 1.3em;"></i>
-                        <span class="weather-stack">
-                            <span id="weather" class="weather-main">Loading...</span>
-                            <span id="weatherLocationMini" class="weather-loc-mini">Localizare...</span>
-                        </span>
-                        <i class="fas fa-sync-alt" onclick="event.stopPropagation(); loadWeather(true);" style="font-size: 0.7em; opacity: 0.7; cursor: pointer;" title="Refresh"></i>
-                    </span>
-                </div>
+     
                 
                 <!-- CENTER: Clock -->
                 <div class="header-center">
@@ -1986,19 +2112,7 @@
                     </div>
                 </div>
                 
-                <!-- RIGHT: Server Badge -->
-                <div class="header-right">
-                    <span class="badge badge-server" onclick="toggleServerModal()">
-                        <i class="fas fa-server" style="font-size: 1.1em; margin-bottom: 1px; opacity: 0.9;"></i>
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 0px;">
-                            <div style="display: flex; align-items: center; gap: 2px;">
-                                <span class="status-dot" style="width: 5px; height: 5px; border-radius: 50%; background: var(--danger); transition: all 0.3s;"></span>
-                                <div style="font-weight: 800; font-size: 0.85em;" id="serverStatus">Check</div>
-                            </div>
-                            <div style="font-size: 0.55em; opacity: 0.9; font-weight: 600;">Click</div>
-                        </div>
-                    </span>
-                </div>
+  
             </div>
         </div>
 
@@ -2223,102 +2337,164 @@
         </div>
     </div>
 
-    <!-- Server Modal -->
-    <div class="server-modal" id="serverModal" onclick="if(event.target === this) closeServerModal()">
-        <div class="server-modal-content">
-            <button class="clock-modal-close" onclick="closeServerModal()">✕</button>
-            
-            <h2 style="color: var(--primary); margin-bottom: 20px; text-align: center;">🖥️ Informații Server</h2>
-            
-            <div class="server-status-display">
-                <div class="server-status-icon" id="modalServerIcon">🖥️</div>
-                <div class="server-status-text" id="modalServerStatus">Checking...</div>
-            </div>
-            
-            <div class="server-info">
-                <div class="server-info-item">
-                    <span class="server-info-label">🌐 Server URL</span>
-                    <span class="server-info-value" id="configuredServerUrl">localhost:8899</span>
-                </div>
-                <div class="server-info-item">
-                    <span class="server-info-label">🔗 Endpoint</span>
-                    <span class="server-info-value" id="configuredEndpoint">/online</span>
-                </div>
-                <div class="server-info-item">
-                    <span class="server-info-label">🕐 Ultima verificare</span>
-                    <span class="server-info-value" id="lastCheck">--</span>
-                </div>
-                <div class="server-info-item">
-                    <span class="server-info-label">📊 Status</span>
-                    <span class="server-info-value" id="serverStatusDetail">--</span>
-                </div>
-                <div class="server-info-item">
-                    <span class="server-info-label">⏱️ Uptime</span>
-                    <span class="server-info-value" id="serverUptime">--</span>
-                </div>
-                <div class="server-info-item">
-                    <span class="server-info-label">📈 Verificări totale</span>
-                    <span class="server-info-value" id="totalChecks">0</span>
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn-primary" onclick="checkServerStatus(); setTimeout(() => updateServerModal(), 500);" style="flex: 1; padding: 15px;">
-                    🔄 Verifică din nou
-                </button>
-                <button class="btn-secondary" onclick="openServerSettings()" style="flex: 1; padding: 15px;">
-                    ⚙️ Setări
-                </button>
-            </div>
-        </div>
+    
     </div>
 
-    <!-- Server Settings Modal -->
-    <div class="modal" id="serverSettingsModal">
-        <div class="modal-content">
-            <h2>⚙️ Setări Server</h2>
+   
+    </div>
+<!-- Password Generator Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h2 style="margin-bottom: 20px; text-align: center;">🔐 Generator Parole Sigure</h2>
             
-            <label style="color: #000000; margin-top: 15px; display: block; font-weight: 700;">🌐 Server URL:</label>
-            <input type="text" id="settingsServerUrl" placeholder="localhost:8899" value="localhost:8899">
-            
-            <label style="color: #000000; margin-top: 15px; display: block; font-weight: 700;">🔗 Endpoint:</label>
-            <input type="text" id="settingsEndpoint" placeholder="/online" value="/online">
-            
-            <label style="color: #000000; margin-top: 15px; display: block; font-weight: 700;">
-                <input type="checkbox" id="settingsNotifications" style="width: auto; margin-right: 10px;">
-                🔔 Activează notificări (sunet când serverul se schimbă)
-            </label>
-            
-            <label style="color: #000000; margin-top: 15px; display: block; font-weight: 700;">
-                <input type="checkbox" id="settingsNotificationSound" style="width: auto; margin-right: 10px;">
-                🔊 Redă sunet la notificări
-            </label>
-            
-            <div style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); padding: 15px; border-radius: 10px; margin-top: 20px;">
-                <div style="color: var(--text-dim); font-size: 0.9em; margin-bottom: 10px;">📊 Statistici:</div>
-                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                    <span style="color: var(--text-dim);">Verificări totale:</span>
-                    <span style="color: var(--text); font-weight: 600;" id="statsChecks">0</span>
+            <!-- Password Display -->
+            <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2)); border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 15px; padding: 20px; margin-bottom: 20px; text-align: center; position: relative;">
+                <div id="generatedPassword" style="font-size: 1.5em; font-weight: 700; color: #fff; word-break: break-all; font-family: 'Courier New', monospace; min-height: 40px; display: flex; align-items: center; justify-content: center;">
+                    Click Generate pentru parolă
                 </div>
-                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                    <span style="color: var(--text-dim);">Verificări online:</span>
-                    <span style="color: var(--success); font-weight: 600;" id="statsOnline">0</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                    <span style="color: var(--text-dim);">Verificări offline:</span>
-                    <span style="color: var(--danger); font-weight: 600;" id="statsOffline">0</span>
-                </div>
-                <button onclick="resetServerStats()" style="width: 100%; margin-top: 10px; padding: 8px; background: rgba(255, 51, 102, 0.2); border: 1px solid var(--danger); color: var(--text); border-radius: 8px; cursor: pointer;">
-                    Resetează statistici
+                <button onclick="copyPassword()" style="position: absolute; top: 10px; right: 10px; background: rgba(16, 185, 129, 0.8); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(16, 185, 129, 1)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.8)'">
+                    📋 Copy
                 </button>
+            </div>
+            
+            <!-- Strength Indicator -->
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span style="color: white; font-size: 0.9em; font-weight: 600;">Putere parolă:</span>
+                    <span id="strengthText" style="color: #fbbf24; font-weight: 700;">-</span>
+                </div>
+                <div style="height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 10px; overflow: hidden;">
+                    <div id="strengthBar" style="height: 100%; width: 0%; background: linear-gradient(135deg, #ef4444, #fbbf24); transition: all 0.3s ease; border-radius: 10px;"></div>
+                </div>
+            </div>
+            
+            <!-- Options -->
+            <div style="background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <label style="color: white; display: block; margin-bottom: 10px; font-weight: 600;">
+                    📏 Lungime: <span id="lengthValue" style="color: #00ffff; font-weight: 700;">16</span>
+                </label>
+                <input type="range" id="passwordLength" min="8" max="64" value="16" style="width: 100%; margin-bottom: 20px;" oninput="document.getElementById('lengthValue').textContent = this.value">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <label style="color: white; display: flex; align-items: center; cursor: pointer; font-weight: 600;">
+                        <input type="checkbox" id="includeUppercase" checked style="width: auto; margin-right: 10px; cursor: pointer;">
+                        🔠 Litere mari (A-Z)
+                    </label>
+                    <label style="color: white; display: flex; align-items: center; cursor: pointer; font-weight: 600;">
+                        <input type="checkbox" id="includeLowercase" checked style="width: auto; margin-right: 10px; cursor: pointer;">
+                        🔡 Litere mici (a-z)
+                    </label>
+                    <label style="color: white; display: flex; align-items: center; cursor: pointer; font-weight: 600;">
+                        <input type="checkbox" id="includeNumbers" checked style="width: auto; margin-right: 10px; cursor: pointer;">
+                        🔢 Numere (0-9)
+                    </label>
+                    <label style="color: white; display: flex; align-items: center; cursor: pointer; font-weight: 600;">
+                        <input type="checkbox" id="includeSymbols" checked style="width: auto; margin-right: 10px; cursor: pointer;">
+                        🔣 Simboluri (!@#$...)
+                    </label>
+                </div>
+            </div>
+            
+            <!-- History -->
+            <div style="background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 15px; margin-bottom: 20px; max-height: 150px; overflow-y: auto;">
+                <div style="color: white; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                    🕐 Istoric Recent
+                    <button onclick="clearPasswordHistory()" style="margin-left: auto; background: rgba(239, 68, 68, 0.3); border: 1px solid var(--danger); color: white; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8em;">
+                        🗑️ Șterge
+                    </button>
+                </div>
+                <div id="passwordHistory" style="display: flex; flex-direction: column; gap: 8px; font-family: 'Courier New', monospace; font-size: 0.85em;">
+                    <div style="color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px;">Nicio parolă generată încă</div>
+                </div>
             </div>
             
             <div class="modal-buttons">
-                <button class="btn-primary" onclick="saveServerSettings()">💾 Salvează</button>
-                <button class="btn-secondary" onclick="closeServerSettings()">❌ Anulează</button>
+                <button class="btn-primary" onclick="generatePassword()" style="flex: 2;">🎲 Generează Parolă</button>
+                <button class="btn-secondary" onclick="closePasswordGenerator()">❌ Închide</button>
             </div>
         </div>
     </div>
+
+
+<!-- Notes/Todo Modal -->
+    <div class="modal" id="notesModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <h2 style="margin-bottom: 20px; text-align: center;">📝 Notes & Todo List</h2>
+            
+            <!-- Add Note Section -->
+            <div style="background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="noteInput" placeholder="✍️ Adaugă notă sau task..." style="flex: 1; padding: 12px; border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 10px; background: rgba(255, 255, 255, 0.2); color: white; font-size: 0.95em;" onkeypress="if(event.key==='Enter') addNote()">
+                    <button onclick="addNote()" style="background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.95em; transition: all 0.3s ease; white-space: nowrap;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        ➕ Adaugă
+                    </button>
+                </div>
+                
+                <!-- Category/Type selector -->
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label style="color: white; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.9em;">
+                        <input type="radio" name="noteType" value="note" checked style="cursor: pointer; accent-color: #fbbf24;">
+                        📝 Notă
+                    </label>
+                    <label style="color: white; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.9em;">
+                        <input type="radio" name="noteType" value="todo" style="cursor: pointer; accent-color: #10b981;">
+                        ✅ Todo
+                    </label>
+                    <label style="color: white; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.9em;">
+                        <input type="radio" name="noteType" value="important" style="cursor: pointer; accent-color: #ef4444;">
+                        ⭐ Important
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Stats Bar -->
+            <div style="display: flex; gap: 15px; margin-bottom: 15px; padding: 12px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                <div style="flex: 1; text-align: center;">
+                    <div style="color: #fbbf24; font-size: 1.5em; font-weight: 700;" id="totalNotes">0</div>
+                    <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.8em;">Total</div>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <div style="color: #10b981; font-size: 1.5em; font-weight: 700;" id="completedTodos">0</div>
+                    <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.8em;">Completate</div>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <div style="color: #ef4444; font-size: 1.5em; font-weight: 700;" id="pendingTodos">0</div>
+                    <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.8em;">Pending</div>
+                </div>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div style="display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
+                <button onclick="filterNotes('all')" id="filterAll" style="background: rgba(255, 255, 255, 0.3); border: 2px solid rgba(255, 255, 255, 0.5); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em; font-weight: 600;">
+                    📋 Toate (<span id="countAll">0</span>)
+                </button>
+                <button onclick="filterNotes('todo')" id="filterTodo" style="background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em;">
+                    ✅ Todo (<span id="countTodo">0</span>)
+                </button>
+                <button onclick="filterNotes('note')" id="filterNote" style="background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em;">
+                    📝 Notes (<span id="countNote">0</span>)
+                </button>
+                <button onclick="filterNotes('important')" id="filterImportant" style="background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em;">
+                    ⭐ Important (<span id="countImportant">0</span>)
+                </button>
+                <button onclick="clearCompletedNotes()" style="margin-left: auto; background: rgba(239, 68, 68, 0.3); border: 2px solid rgba(239, 68, 68, 0.5); color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em;">
+                    🗑️ Șterge completate
+                </button>
+            </div>
+            
+            <!-- Notes List -->
+            <div id="notesList" style="max-height: 400px; overflow-y: auto; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 15px; margin-bottom: 20px;">
+                <div style="color: rgba(255, 255, 255, 0.6); text-align: center; padding: 40px 20px;">
+                    📝 Nicio notă încă. Adaugă prima ta notă!
+                </div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeNotesModal()">❌ Închide</button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         // ===== PREVENT ZOOM ONLY ON MOBILE =====
@@ -2797,10 +2973,10 @@
             renderLinks(); // Now render with loaded links
             renderSearchHistory();
             updateClock();
-            checkServerStatus();
+           
             loadWeather();
             setInterval(updateClock, 1000);
-            setInterval(checkServerStatus, 5000);
+            
 
             // Add typing sound to all text inputs
             const inputs = document.querySelectorAll('input[type="text"]');
@@ -3359,329 +3535,11 @@
         }
 
         // Server Status
-        let lastServerCheck = null;
-        let serverOnline = false;
-        let previousServerStatus = null;
-        let serverStartTime = null;
-        
-        // Server config and stats
-        const SERVER_CONFIG_KEY = 'serverConfig_v1';
-        const SERVER_STATS_KEY = 'serverStats_v1';
-        
-        function getServerConfig() {
-            try {
-                const data = localStorage.getItem(SERVER_CONFIG_KEY);
-                return data ? JSON.parse(data) : {
-                    url: 'localhost:8899',
-                    endpoint: '/online',
-                    notifications: true,
-                    notificationSound: true
-                };
-            } catch (e) {
-                return {
-                    url: 'localhost:8899',
-                    endpoint: '/online',
-                    notifications: true,
-                    notificationSound: true
-                };
-            }
-        }
-        
-        function saveServerConfig(config) {
-            try {
-                localStorage.setItem(SERVER_CONFIG_KEY, JSON.stringify(config));
-            } catch (e) {
-                console.error('Error saving server config:', e);
-            }
-        }
-        
-        function getServerStats() {
-            try {
-                const data = localStorage.getItem(SERVER_STATS_KEY);
-                return data ? JSON.parse(data) : {
-                    totalChecks: 0,
-                    onlineChecks: 0,
-                    offlineChecks: 0,
-                    lastOnline: null,
-                    totalUptime: 0
-                };
-            } catch (e) {
-                return {
-                    totalChecks: 0,
-                    onlineChecks: 0,
-                    offlineChecks: 0,
-                    lastOnline: null,
-                    totalUptime: 0
-                };
-            }
-        }
-        
-        function saveServerStats(stats) {
-            try {
-                localStorage.setItem(SERVER_STATS_KEY, JSON.stringify(stats));
-            } catch (e) {
-                console.error('Error saving server stats:', e);
-            }
-        }
-        
-        function playNotificationBeep() {
-            try {
-                // Create a beep sound using Web Audio API
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.3);
-            } catch (e) {
-                console.error('Error playing notification sound:', e);
-            }
-        }
-        
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 80px;
-                right: 20px;
-                background: linear-gradient(135deg, ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : 'var(--primary)'}, var(--secondary));
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
+       
+      
+      
 
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        async function checkServerStatus() {
-            const config = getServerConfig();
-            const stats = getServerStats();
-            
-            try {
-                const url = config.url.startsWith('http') ? config.url : `http://${config.url}`;
-                const response = await fetch(`${url}${config.endpoint}`);
-                const data = await response.json();
-                serverOnline = data.online || response.ok;
-                lastServerCheck = new Date();
-                
-                // Update stats
-                stats.totalChecks++;
-                if (serverOnline) {
-                    stats.onlineChecks++;
-                    if (!serverStartTime) {
-                        serverStartTime = Date.now();
-                    }
-                    stats.lastOnline = Date.now();
-                } else {
-                    stats.offlineChecks++;
-                    if (serverStartTime) {
-                        stats.totalUptime += (Date.now() - serverStartTime) / 1000;
-                        serverStartTime = null;
-                    }
-                }
-                saveServerStats(stats);
-                
-                // Check for status change and notify
-                if (previousServerStatus !== null && previousServerStatus !== serverOnline && config.notifications) {
-                    if (serverOnline) {
-                        showNotification('🟢 Server acum online!', 'success');
-                        if (config.notificationSound) {
-                            playNotificationBeep();
-                        }
-                    } else {
-                        showNotification('🔴 Server acum offline!', 'error');
-                        if (config.notificationSound) {
-                            playNotificationBeep();
-                        }
-                    }
-                }
-                previousServerStatus = serverOnline;
-                
-                if (serverOnline) {
-                    document.getElementById('serverStatus').innerHTML = 'Server: Online';
-                    document.querySelector('.status-dot').style.background = 'var(--success)';
-                } else {
-                    document.getElementById('serverStatus').innerHTML = 'Server: Offline';
-                    document.querySelector('.status-dot').style.background = 'var(--danger)';
-                }
-            } catch (error) {
-                serverOnline = false;
-                lastServerCheck = new Date();
-                
-                // Update stats
-                stats.totalChecks++;
-                stats.offlineChecks++;
-                if (serverStartTime) {
-                    stats.totalUptime += (Date.now() - serverStartTime) / 1000;
-                    serverStartTime = null;
-                }
-                saveServerStats(stats);
-                
-                // Check for status change and notify
-                if (previousServerStatus !== null && previousServerStatus !== serverOnline && config.notifications) {
-                    showNotification('🔴 Server acum offline!', 'error');
-                    if (config.notificationSound) {
-                        playNotificationBeep();
-                    }
-                }
-                previousServerStatus = serverOnline;
-                
-                document.getElementById('serverStatus').innerHTML = 'Server: Offline';
-                document.querySelector('.status-dot').style.background = 'var(--danger)';
-            }
-        }
-
-        function formatUptime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = Math.floor(seconds % 60);
-            
-            if (hours > 0) {
-                return `${hours}h ${minutes}m ${secs}s`;
-            } else if (minutes > 0) {
-                return `${minutes}m ${secs}s`;
-            } else {
-                return `${secs}s`;
-            }
-        }
-
-        function updateServerModal() {
-            const config = getServerConfig();
-            const stats = getServerStats();
-            const modal = document.getElementById('serverModal');
-            
-            // Update config display
-            document.getElementById('configuredServerUrl').textContent = config.url;
-            document.getElementById('configuredEndpoint').textContent = config.endpoint;
-            
-            if (serverOnline) {
-                document.getElementById('modalServerIcon').textContent = '✅';
-                document.getElementById('modalServerStatus').textContent = 'Server Online';
-                document.getElementById('modalServerStatus').style.color = 'var(--success)';
-                document.getElementById('serverStatusDetail').textContent = 'Connected';
-                document.getElementById('serverStatusDetail').style.color = 'var(--success)';
-            } else {
-                document.getElementById('modalServerIcon').textContent = '❌';
-                document.getElementById('modalServerStatus').textContent = 'Server Offline';
-                document.getElementById('modalServerStatus').style.color = 'var(--danger)';
-                document.getElementById('serverStatusDetail').textContent = 'Disconnected';
-                document.getElementById('serverStatusDetail').style.color = 'var(--danger)';
-            }
-            
-            if (lastServerCheck) {
-                document.getElementById('lastCheck').textContent = lastServerCheck.toLocaleTimeString('ro-RO');
-            }
-            
-            // Calculate current uptime
-            let currentUptime = stats.totalUptime;
-            if (serverStartTime && serverOnline) {
-                currentUptime += (Date.now() - serverStartTime) / 1000;
-            }
-            
-            document.getElementById('serverUptime').textContent = formatUptime(currentUptime);
-            document.getElementById('totalChecks').textContent = stats.totalChecks;
-        }
-
-        function toggleServerModal() {
-            const modal = document.getElementById('serverModal');
-            if (modal.classList.contains('show')) {
-                closeServerModal();
-            } else {
-                playSound('bleepSound', 0.3);
-                modal.classList.add('show');
-                updateServerModal();
-            }
-        }
-
-        function closeServerModal() {
-            playSound('thudSound', 0.2);
-            document.getElementById('serverModal').classList.remove('show');
-        }
-        
-        function openServerSettings() {
-            const config = getServerConfig();
-            const stats = getServerStats();
-            
-            document.getElementById('settingsServerUrl').value = config.url;
-            document.getElementById('settingsEndpoint').value = config.endpoint;
-            document.getElementById('settingsNotifications').checked = config.notifications;
-            document.getElementById('settingsNotificationSound').checked = config.notificationSound;
-            
-            document.getElementById('statsChecks').textContent = stats.totalChecks;
-            document.getElementById('statsOnline').textContent = stats.onlineChecks;
-            document.getElementById('statsOffline').textContent = stats.offlineChecks;
-            
-            closeServerModal();
-            playSound('bleepSound', 0.3);
-            document.getElementById('serverSettingsModal').classList.add('show');
-        }
-        
-        function closeServerSettings() {
-            playSound('thudSound', 0.2);
-            document.getElementById('serverSettingsModal').classList.remove('show');
-        }
-        
-        function saveServerSettings() {
-            const config = {
-                url: document.getElementById('settingsServerUrl').value.trim(),
-                endpoint: document.getElementById('settingsEndpoint').value.trim(),
-                notifications: document.getElementById('settingsNotifications').checked,
-                notificationSound: document.getElementById('settingsNotificationSound').checked
-            };
-            
-            if (!config.url) {
-                alert('Te rog introdu un URL valid!');
-                return;
-            }
-            
-            if (!config.endpoint) {
-                config.endpoint = '/online';
-            }
-            
-            playSound('permanentSound', 0.4);
-            saveServerConfig(config);
-            closeServerSettings();
-            showNotification('✅ Setări salvate cu succes!', 'success');
-            
-            // Recheck server with new settings
-            checkServerStatus();
-        }
-        
-        function resetServerStats() {
-            if (confirm('Sigur vrei să resetezi toate statisticile?')) {
-                const stats = {
-                    totalChecks: 0,
-                    onlineChecks: 0,
-                    offlineChecks: 0,
-                    lastOnline: null,
-                    totalUptime: 0
-                };
-                saveServerStats(stats);
-                serverStartTime = null;
-                
-                document.getElementById('statsChecks').textContent = '0';
-                document.getElementById('statsOnline').textContent = '0';
-                document.getElementById('statsOffline').textContent = '0';
-                
-                showNotification('📊 Statistici resetate!', 'info');
-            }
-        }
+    
 
         // Weather
         // Weather
@@ -4326,16 +4184,25 @@
             try {
                 // Create export object with all data
               const exportData = {
-    version: "1.0",
+    version: "2.0",  // ✅ Versiune nouă pentru format extins
     exportDate: new Date().toISOString(),
+    
+    // Links & Organization
     links: links,
     favorites: [...favorites],
     customOrder: customOrder,
     visitStats: visitStats,
-    searchHistory: getSearchHistory(),  // ✅ ADĂUGAT
-    categories: CATEGORIES.map(c => c.key)
+    searchHistory: getSearchHistory(),
+    categories: CATEGORIES.map(c => c.key),
+    
+    // ✅ ADĂUGATE - Notes & Passwords
+    notes: getNotes(),
+    passwordHistory: JSON.parse(localStorage.getItem(PASSWORD_HISTORY_KEY) || '[]'),
+    
+    // ✅ ADĂUGATE - Settings
+    theme: localStorage.getItem(THEME_KEY) || 'purple',
+    soundEnabled: localStorage.getItem(SOUND_ENABLED_KEY) === 'true'
 };
-
                 // Convert to JSON
                 const jsonString = JSON.stringify(exportData, null, 2);
                 
@@ -4394,14 +4261,20 @@
                     }
 
                     // Confirm import
-                 const confirmMsg = `📤 Import Link-uri\n\n` +
+  const confirmMsg = `📤 Import Backup Complet\n\n` +
     `Fișier: ${file.name}\n` +
-    `Data export: ${importData.exportDate ? new Date(importData.exportDate).toLocaleString('ro-RO') : 'Necunoscută'}\n` +
-    `Link-uri: ${importData.links.length}\n` +
-    `Favorite: ${importData.favorites ? importData.favorites.length : 0}\n` +
-    `Căutări: ${importData.searchHistory ? importData.searchHistory.length : 0}\n\n` +  // ✅ ADĂUGAT
-    `⚠️ Atenție: Toate link-urile curente vor fi ÎNLOCUITE!\n\n` +
-    `Continui?`;
+    `Versiune: ${importData.version || '1.0'}\n` +
+    `Data export: ${importData.exportDate ? new Date(importData.exportDate).toLocaleString('ro-RO') : 'Necunoscută'}\n\n` +
+    `📊 CONȚINUT:\n` +
+    `• Link-uri: ${importData.links.length}\n` +
+    `• Favorite: ${importData.favorites ? importData.favorites.length : 0}\n` +
+    `• Căutări: ${importData.searchHistory ? importData.searchHistory.length : 0}\n` +
+    `• Notes: ${importData.notes ? importData.notes.length : 0}\n` +
+    `• Parole: ${importData.passwordHistory ? importData.passwordHistory.length : 0}\n` +
+    `• Temă: ${importData.theme || 'N/A'}\n` +
+    `• Sunete: ${importData.soundEnabled !== undefined ? (importData.soundEnabled ? 'ON' : 'OFF') : 'N/A'}\n\n` +
+    `⚠️ ATENȚIE: Toate datele curente vor fi ÎNLOCUITE!\n\n` +
+    `Continui cu importul?`;
 
                     if (!confirm(confirmMsg)) {
                         event.target.value = ''; // Reset input
@@ -4419,7 +4292,32 @@ if (importData.searchHistory && Array.isArray(importData.searchHistory)) {
     saveSearchHistory(importData.searchHistory);
     renderSearchHistory();
 }
+// ✅ Import Notes/Todo
+if (importData.notes && Array.isArray(importData.notes)) {
+    localStorage.setItem(NOTES_KEY, JSON.stringify(importData.notes));
+    console.log('✅ Imported', importData.notes.length, 'notes');
+}
 
+// ✅ Import Password History
+if (importData.passwordHistory && Array.isArray(importData.passwordHistory)) {
+    localStorage.setItem(PASSWORD_HISTORY_KEY, JSON.stringify(importData.passwordHistory));
+    console.log('✅ Imported', importData.passwordHistory.length, 'passwords');
+}
+
+// ✅ Import Theme
+if (importData.theme && THEMES.includes(importData.theme)) {
+    localStorage.setItem(THEME_KEY, importData.theme);
+    applyTheme(importData.theme);
+    console.log('✅ Imported theme:', importData.theme);
+}
+
+// ✅ Import Sound Settings
+if (typeof importData.soundEnabled === 'boolean') {
+    soundEnabled = importData.soundEnabled;
+    localStorage.setItem(SOUND_ENABLED_KEY, soundEnabled.toString());
+    updateSoundButton();
+    console.log('✅ Imported sound setting:', soundEnabled);
+}
 // Re-render
 renderLinks();
 
@@ -4451,86 +4349,165 @@ renderLinks();
 
 
 // ===== VERIFICATION DASHBOARD =====
-        function showVerificationDashboard() {
-            playSound('bleepSound', 0.3);
-            
-            const data = {
-                links: JSON.parse(localStorage.getItem('allLinks_v3') || '[]'),
-                favorites: JSON.parse(localStorage.getItem('favoriteLinks_v1') || '[]'),
-                customOrder: JSON.parse(localStorage.getItem('customOrder_v1') || '[]'),
-                visitStats: JSON.parse(localStorage.getItem('visitStats_v1') || '{}'),
-                searchHistory: JSON.parse(localStorage.getItem('searchHistory_v1') || '[]')
-            };
-            
-            const dashboard = document.createElement('div');
-            dashboard.id = 'verificationDashboard';
-            dashboard.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: linear-gradient(135deg, rgba(102, 126, 234, 0.98) 0%, rgba(118, 75, 162, 0.98) 100%);
-                border: 3px solid rgba(255, 255, 255, 0.6);
-                border-radius: 20px;
-                padding: 30px;
-                z-index: 10000;
-                color: white;
-                font-family: 'Segoe UI', sans-serif;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                max-width: 500px;
-                backdrop-filter: blur(20px);
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            dashboard.innerHTML = `
-                <h2 style="margin: 0 0 20px 0; text-align: center; font-size: 1.8em;">
-                    🔍 Verificare Date
-                </h2>
-                <div style="background: rgba(255, 255, 255, 0.2); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div style="text-align: center; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-                            <div style="font-size: 2.5em; font-weight: 900;">${data.links.length}</div>
-                            <div style="font-size: 0.9em; opacity: 0.9;">📊 Links</div>
-                        </div>
-                        <div style="text-align: center; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-                            <div style="font-size: 2.5em; font-weight: 900;">${data.favorites.length}</div>
-                            <div style="font-size: 0.9em; opacity: 0.9;">⭐ Favorite</div>
-                        </div>
-                        <div style="text-align: center; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-                            <div style="font-size: 2.5em; font-weight: 900;">${data.customOrder.length}</div>
-                            <div style="font-size: 0.9em; opacity: 0.9;">📁 Order</div>
-                        </div>
-                        <div style="text-align: center; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px;">
-                            <div style="font-size: 2.5em; font-weight: 900;">${Object.keys(data.visitStats).length}</div>
-                            <div style="font-size: 0.9em; opacity: 0.9;">📈 Stats</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="background: rgba(255, 255, 255, 0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
-                    <div style="font-size: 2em; font-weight: 900; margin-bottom: 5px;">${data.searchHistory.length}</div>
-                    <div style="font-size: 0.9em; opacity: 0.9;">🔍 Căutări salvate</div>
-                </div>
-                <div style="text-align: center;">
-                    <button onclick="closeVerificationDashboard()" style="
-                        background: linear-gradient(135deg, #10b981, #059669);
-                        border: none;
-                        color: white;
-                        padding: 15px 40px;
-                        border-radius: 10px;
-                        font-size: 1.1em;
-                        font-weight: 600;
-                        cursor: pointer;
-                        box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
-                        transition: all 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                        ✅ Închide
-                    </button>
-                </div>
-            `;
-            
-            document.body.appendChild(dashboard);
-        }
+       
+     
         
+
+function showVerificationDashboard() {
+    playSound('bleepSound', 0.3);
+    
+    const data = {
+        links: JSON.parse(localStorage.getItem('allLinks_v3') || '[]'),
+        favorites: JSON.parse(localStorage.getItem('favoriteLinks_v1') || '[]'),
+        customOrder: JSON.parse(localStorage.getItem('customOrder_v1') || '[]'),
+        visitStats: JSON.parse(localStorage.getItem('visitStats_v1') || '{}'),
+        searchHistory: JSON.parse(localStorage.getItem('searchHistory_v1') || '[]'),
+        notes: JSON.parse(localStorage.getItem('notes_v1') || '[]'),
+        passwords: JSON.parse(localStorage.getItem('passwordHistory_v1') || '[]'),
+        theme: localStorage.getItem('selectedTheme_v1') || 'purple',
+        soundEnabled: localStorage.getItem('soundEnabled_v1') === 'true'
+    };
+    
+    const themeNames = {
+        purple: '💜 Purple Dream',
+        neon: '💚 Neon Night',
+        sunset: '🌅 Sunset Vibes',
+        ocean: '🌊 Ocean Breeze',
+        light: '☀️ Light Mode'
+    };
+    
+    const dashboard = document.createElement('div');
+    dashboard.id = 'verificationDashboard';
+    dashboard.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.98) 0%, rgba(118, 75, 162, 0.98) 100%);
+        border: 3px solid rgba(255, 255, 255, 0.6);
+        border-radius: 25px;
+        padding: 35px;
+        z-index: 10000;
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+        max-width: 600px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        backdrop-filter: blur(20px);
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    dashboard.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h2 style="margin: 0; font-size: 2.2em; font-weight: 900; text-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);">
+                🔍 Verificare Date Complete
+            </h2>
+            <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 0.95em;">
+                Backup complet al tuturor datelor tale
+            </p>
+        </div>
+
+        <!-- STATS PRINCIPALE - Grid 3x2 -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(59, 130, 246, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">📊</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${data.links.length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Links</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(251, 191, 36, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">⭐</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${data.favorites.length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Favorite</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">🔍</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${data.searchHistory.length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Căutări</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(219, 39, 119, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(236, 72, 153, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">📝</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${data.notes.length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Notes</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(147, 51, 234, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(168, 85, 247, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">🔐</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${data.passwords.length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Parole</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3)); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(239, 68, 68, 0.5)';" onmouseout="this.style.transform=''; this.style.boxShadow='';">
+                <div style="font-size: 3em; margin-bottom: 8px;">📈</div>
+                <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">${Object.keys(data.visitStats).length}</div>
+                <div style="font-size: 0.85em; opacity: 0.95; font-weight: 600;">Vizite</div>
+            </div>
+        </div>
+
+        <!-- DETALII ORGANIZARE -->
+        <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid rgba(255, 255, 255, 0.3);">
+            <h3 style="margin: 0 0 15px 0; font-size: 1.3em; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                📁 Detalii Organizare
+            </h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                    <span style="opacity: 0.9;">📂 Ordine custom</span>
+                    <span style="font-weight: 700; font-size: 1.2em;">${data.customOrder.length}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                    <span style="opacity: 0.9;">🎨 Temă</span>
+                    <span style="font-weight: 700; font-size: 1em;">${themeNames[data.theme] || data.theme}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                    <span style="opacity: 0.9;">🔊 Sunete</span>
+                    <span style="font-weight: 700; font-size: 1.2em;">${data.soundEnabled ? '✅ ON' : '🔇 OFF'}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                    <span style="opacity: 0.9;">💾 Total date</span>
+                    <span style="font-weight: 700; font-size: 1.2em;">${data.links.length + data.notes.length + data.passwords.length}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUTOANE -->
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button onclick="closeVerificationDashboard()" style="
+                background: linear-gradient(135deg, #10b981, #059669);
+                border: none;
+                color: white;
+                padding: 15px 35px;
+                border-radius: 12px;
+                font-size: 1.1em;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.6)';" onmouseout="this.style.transform=''; this.style.boxShadow='0 5px 20px rgba(16, 185, 129, 0.4)';">
+                ✅ Perfect!
+            </button>
+            <button onclick="exportLinks(); closeVerificationDashboard();" style="
+                background: linear-gradient(135deg, #3b82f6, #2563eb);
+                border: none;
+                color: white;
+                padding: 15px 35px;
+                border-radius: 12px;
+                font-size: 1.1em;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(59, 130, 246, 0.6)';" onmouseout="this.style.transform=''; this.style.boxShadow='0 5px 20px rgba(59, 130, 246, 0.4)';">
+                📥 Export Acum
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(dashboard);
+}
         function closeVerificationDashboard() {
             playSound('thudSound', 0.2);
             const dashboard = document.getElementById('verificationDashboard');
@@ -4540,7 +4517,390 @@ renderLinks();
         }
 
 
+        // ===== PASSWORD GENERATOR =====
+        const PASSWORD_HISTORY_KEY = 'passwordHistory_v1';
+        let currentPassword = '';
+        
+        function openPasswordGenerator() {
+            playSound('bleepSound', 0.3);
+            document.getElementById('passwordModal').classList.add('show');
+            loadPasswordHistory();
+        }
+        
+        function closePasswordGenerator() {
+            playSound('thudSound', 0.2);
+            document.getElementById('passwordModal').classList.remove('show');
+        }
+        
+        function generatePassword() {
+            playSound('toggleSound', 0.3);
+            
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const includeUppercase = document.getElementById('includeUppercase').checked;
+            const includeLowercase = document.getElementById('includeLowercase').checked;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+            
+            if (!includeUppercase && !includeLowercase && !includeNumbers && !includeSymbols) {
+                showNotification('⚠️ Selectează cel puțin o opțiune!', 'error');
+                return;
+            }
+            
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            
+            let charset = '';
+            let password = '';
+            
+            if (includeUppercase) charset += uppercase;
+            if (includeLowercase) charset += lowercase;
+            if (includeNumbers) charset += numbers;
+            if (includeSymbols) charset += symbols;
+            
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            
+            if (includeUppercase && !/[A-Z]/.test(password)) {
+                password = password.substring(0, password.length - 1) + uppercase[Math.floor(Math.random() * uppercase.length)];
+            }
+            if (includeLowercase && !/[a-z]/.test(password)) {
+                password = password.substring(0, password.length - 1) + lowercase[Math.floor(Math.random() * lowercase.length)];
+            }
+            if (includeNumbers && !/[0-9]/.test(password)) {
+                password = password.substring(0, password.length - 1) + numbers[Math.floor(Math.random() * numbers.length)];
+            }
+            if (includeSymbols && !/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)) {
+                password = password.substring(0, password.length - 1) + symbols[Math.floor(Math.random() * symbols.length)];
+            }
+            
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+            
+            currentPassword = password;
+            document.getElementById('generatedPassword').textContent = password;
+            updatePasswordStrength(password);
+            addToPasswordHistory(password);
+            showNotification('🎲 Parolă generată cu succes!', 'success');
+        }
+        
+        function updatePasswordStrength(password) {
+            let strength = 0;
+            const lengthScore = Math.min(password.length / 16, 1) * 25;
+            strength += lengthScore;
+            
+            if (/[a-z]/.test(password)) strength += 15;
+            if (/[A-Z]/.test(password)) strength += 15;
+            if (/[0-9]/.test(password)) strength += 15;
+            if (/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)) strength += 20;
+            
+            const uniqueChars = new Set(password).size;
+            if (uniqueChars > password.length * 0.7) strength += 10;
+            
+            strength = Math.min(strength, 100);
+            
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 40) {
+                strengthBar.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                strengthText.textContent = '🔴 Slabă';
+                strengthText.style.color = '#ef4444';
+            } else if (strength < 70) {
+                strengthBar.style.background = 'linear-gradient(135deg, #fbbf24, #f59e0b)';
+                strengthText.textContent = '🟡 Medie';
+                strengthText.style.color = '#fbbf24';
+            } else if (strength < 90) {
+                strengthBar.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                strengthText.textContent = '🟢 Bună';
+                strengthText.style.color = '#10b981';
+            } else {
+                strengthBar.style.background = 'linear-gradient(135deg, #06b6d4, #0891b2)';
+                strengthText.textContent = '💎 Excelentă';
+                strengthText.style.color = '#06b6d4';
+            }
+        }
+        
+        function copyPassword() {
+            const password = document.getElementById('generatedPassword').textContent;
+            
+            if (!password || password === 'Click Generate pentru parolă') {
+                showNotification('⚠️ Generează o parolă mai întâi!', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(password).then(() => {
+                playSound('permanentSound', 0.4);
+                showNotification('📋 Parolă copiată în clipboard!', 'success');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showNotification('❌ Eroare la copiere!', 'error');
+            });
+        }
+        
+        function addToPasswordHistory(password) {
+            try {
+                let history = JSON.parse(localStorage.getItem(PASSWORD_HISTORY_KEY) || '[]');
+                history.unshift({ password: password, timestamp: Date.now() });
+                history = history.slice(0, 5);
+                localStorage.setItem(PASSWORD_HISTORY_KEY, JSON.stringify(history));
+                renderPasswordHistory(history);
+            } catch (e) {
+                console.error('Error saving password history:', e);
+            }
+        }
+        
+        function loadPasswordHistory() {
+            try {
+                const history = JSON.parse(localStorage.getItem(PASSWORD_HISTORY_KEY) || '[]');
+                renderPasswordHistory(history);
+            } catch (e) {
+                console.error('Error loading password history:', e);
+                renderPasswordHistory([]);
+            }
+        }
+        
+        function renderPasswordHistory(history) {
+            const container = document.getElementById('passwordHistory');
+            
+            if (!history || history.length === 0) {
+                container.innerHTML = '<div style="color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px;">Nicio parolă generată încă</div>';
+                return;
+            }
+            
+            container.innerHTML = history.map((item, index) => {
+                const date = new Date(item.timestamp);
+                const timeStr = date.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' });
+                
+                return `
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 8px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                        <span style="color: white; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.password}</span>
+                        <span style="color: rgba(255, 255, 255, 0.6); font-size: 0.8em; white-space: nowrap;">${timeStr}</span>
+                        <button onclick="copyPasswordFromHistory('${item.password.replace(/'/g, "\\'")}'); event.stopPropagation();" style="background: rgba(16, 185, 129, 0.6); border: none; color: white; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 0.85em; white-space: nowrap;" onmouseover="this.style.background='rgba(16, 185, 129, 0.8)'" onmouseout="this.style.background='rgba(16, 185, 129, 0.6)'">
+                            📋
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function copyPasswordFromHistory(password) {
+            navigator.clipboard.writeText(password).then(() => {
+                playSound('clickSound', 0.3);
+                showNotification('📋 Parolă copiată!', 'success');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showNotification('❌ Eroare la copiere!', 'error');
+            });
+        }
+        
+        function clearPasswordHistory() {
+            if (confirm('Sigur vrei să ștergi istoricul de parole?')) {
+                localStorage.removeItem(PASSWORD_HISTORY_KEY);
+                renderPasswordHistory([]);
+                playSound('thudSound', 0.3);
+                showNotification('🗑️ Istoric șters!', 'info');
+            }
+        }
 
+ // ===== NOTES/TODO SYSTEM =====
+        const NOTES_KEY = 'notes_v1';
+        let currentNotesFilter = 'all';
+        
+        function openNotesModal() {
+            playSound('bleepSound', 0.3);
+            document.getElementById('notesModal').classList.add('show');
+            loadNotes();
+            document.getElementById('noteInput').focus();
+        }
+        
+        function closeNotesModal() {
+            playSound('thudSound', 0.2);
+            document.getElementById('notesModal').classList.remove('show');
+        }
+        
+        function getNotes() {
+            try {
+                return JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+        
+        function saveNotes(notes) {
+            try {
+                localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+            } catch (e) {
+                console.error('Error saving notes:', e);
+            }
+        }
+        
+        function addNote() {
+            const input = document.getElementById('noteInput');
+            const text = input.value.trim();
+            
+            if (!text) {
+                showNotification('⚠️ Scrie ceva mai întâi!', 'error');
+                return;
+            }
+            
+            const type = document.querySelector('input[name="noteType"]:checked').value;
+            
+            const note = {
+                id: Date.now(),
+                text: text,
+                type: type,
+                completed: false,
+                timestamp: Date.now()
+            };
+            
+            const notes = getNotes();
+            notes.unshift(note);
+            saveNotes(notes);
+            
+            input.value = '';
+            playSound('permanentSound', 0.4);
+            showNotification('✅ Notă adăugată!', 'success');
+            
+            loadNotes();
+        }
+        
+        function toggleNote(id) {
+            const notes = getNotes();
+            const note = notes.find(n => n.id === id);
+            
+            if (note) {
+                note.completed = !note.completed;
+                saveNotes(notes);
+                playSound('clickSound', 0.3);
+                loadNotes();
+            }
+        }
+        
+        function deleteNote(id) {
+            if (confirm('Sigur vrei să ștergi această notă?')) {
+                let notes = getNotes();
+                notes = notes.filter(n => n.id !== id);
+                saveNotes(notes);
+                playSound('thudSound', 0.3);
+                showNotification('🗑️ Notă ștearsă!', 'info');
+                loadNotes();
+            }
+        }
+        
+        function editNote(id) {
+            const notes = getNotes();
+            const note = notes.find(n => n.id === id);
+            
+            if (note) {
+                const newText = prompt('Editează nota:', note.text);
+                if (newText && newText.trim()) {
+                    note.text = newText.trim();
+                    saveNotes(notes);
+                    playSound('toggleSound', 0.3);
+                    showNotification('✏️ Notă actualizată!', 'success');
+                    loadNotes();
+                }
+            }
+        }
+        
+        function filterNotes(type) {
+            currentNotesFilter = type;
+            
+            // Update button styles
+            ['filterAll', 'filterTodo', 'filterNote', 'filterImportant'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    if (id === 'filter' + type.charAt(0).toUpperCase() + type.slice(1) || (type === 'all' && id === 'filterAll')) {
+                        btn.style.background = 'rgba(255, 255, 255, 0.3)';
+                        btn.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                    } else {
+                        btn.style.background = 'rgba(255, 255, 255, 0.15)';
+                        btn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    }
+                }
+            });
+            
+            playSound('clickSound', 0.2);
+            loadNotes();
+        }
+        
+        function clearCompletedNotes() {
+            const notes = getNotes();
+            const completedCount = notes.filter(n => n.completed).length;
+            
+            if (completedCount === 0) {
+                showNotification('📝 Nu sunt note completate!', 'info');
+                return;
+            }
+            
+            if (confirm(`Ștergi ${completedCount} note completate?`)) {
+                const filtered = notes.filter(n => !n.completed);
+                saveNotes(filtered);
+                playSound('thudSound', 0.3);
+                showNotification(`🗑️ ${completedCount} note șterse!`, 'success');
+                loadNotes();
+            }
+        }
+        
+        function loadNotes() {
+            const notes = getNotes();
+            const container = document.getElementById('notesList');
+            
+            // Update stats
+            const total = notes.length;
+            const completed = notes.filter(n => n.completed && n.type === 'todo').length;
+            const pending = notes.filter(n => !n.completed && n.type === 'todo').length;
+            
+            document.getElementById('totalNotes').textContent = total;
+            document.getElementById('completedTodos').textContent = completed;
+            document.getElementById('pendingTodos').textContent = pending;
+            
+            // Update filter counts
+            document.getElementById('countAll').textContent = total;
+            document.getElementById('countTodo').textContent = notes.filter(n => n.type === 'todo').length;
+            document.getElementById('countNote').textContent = notes.filter(n => n.type === 'note').length;
+            document.getElementById('countImportant').textContent = notes.filter(n => n.type === 'important').length;
+            
+            // Filter notes
+            let filtered = notes;
+            if (currentNotesFilter !== 'all') {
+                filtered = notes.filter(n => n.type === currentNotesFilter);
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="color: rgba(255, 255, 255, 0.6); text-align: center; padding: 40px 20px;">📝 Nicio notă în această categorie</div>';
+                return;
+            }
+            
+            // Render notes
+            container.innerHTML = filtered.map(note => {
+                const icon = note.type === 'todo' ? '✅' : note.type === 'important' ? '⭐' : '📝';
+                const date = new Date(note.timestamp);
+                const dateStr = date.toLocaleDateString('ro-RO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+                
+                return `
+                    <div class="note-item ${note.completed ? 'completed' : ''}" data-id="${note.id}">
+                        ${note.type === 'todo' ? `<input type="checkbox" class="note-checkbox" ${note.completed ? 'checked' : ''} onchange="toggleNote(${note.id})">` : ''}
+                        <span style="font-size: 1.2em;">${icon}</span>
+                        <div class="note-text">
+                            <div>${note.text}</div>
+                            <div style="font-size: 0.75em; color: rgba(255, 255, 255, 0.6); margin-top: 4px;">${dateStr}</div>
+                        </div>
+                        <div class="note-actions">
+                            <button class="note-btn" onclick="editNote(${note.id})" title="Editează">✏️</button>
+                            <button class="note-btn delete" onclick="deleteNote(${note.id})" title="Șterge">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+ 
 
     </script>
 </body>
