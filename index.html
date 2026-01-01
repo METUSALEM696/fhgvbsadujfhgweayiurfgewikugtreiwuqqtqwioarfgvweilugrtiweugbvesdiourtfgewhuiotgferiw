@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -7,7 +6,8 @@
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json">
+   <link rel="manifest" href="./manifest.json">
+
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,6 +15,13 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        
+  @media (min-width: 1025px){
+    html { zoom: 0.8 !important; }
+    html { outline: 6px solid red !important; }
+  }
+
+
         * {
             margin: 0;
             padding: 0;
@@ -1902,6 +1909,7 @@
         #notesModal button span {
             color: white !important;
         }
+        
     </style>
 </head>
 <body>
@@ -2394,6 +2402,39 @@
     </div>
 
     <script>
+
+
+/* ===== ONE-TIME SW + CACHE NUKE (remove after it works) ===== */
+(async function nukeOnce(){
+  const KEY = "SW_NUKED_ONCE_v1";
+  if (localStorage.getItem(KEY) === "1") return;
+
+  try {
+    if ("serviceWorker" in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) await r.unregister();
+    }
+  } catch {}
+
+  try {
+    if (window.caches) {
+      const keys = await caches.keys();
+      for (const k of keys) await caches.delete(k);
+    }
+  } catch {}
+
+  localStorage.setItem(KEY, "1");
+
+  // Force reload fresh from network
+  location.replace(location.pathname + "?v=" + Date.now());
+})();
+
+
+
+
+
+
+
         // ===== PREVENT ZOOM ONLY ON MOBILE =====
         (function() {
             'use strict';
@@ -2812,6 +2853,16 @@
             if (editSel) editSel.innerHTML = options;
         }
 
+
+
+
+
+
+
+
+
+        
+
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
             loadSoundSettings();
@@ -2864,7 +2915,7 @@
                 }
                 
                 if (!isInModal && !isInInput && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                    const searchInput = document.getElementById('searchInput');
+                  const searchInput = document.getElementById('filterInput');
                     if (searchInput && searchInput !== activeElement) {
                         searchInput.focus();
                     }
@@ -2898,18 +2949,38 @@
             });
         }
         
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(
-                    (registration) => {
-                        console.log('✅ Service Worker registered:', registration.scope);
-                    },
-                    (error) => {
-                        console.log('❌ Service Worker registration failed:', error);
-                    }
-                );
-            });
-        }
+    if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      const SW_VERSION = "2026-01-01_01"; // <-- schimbă asta când faci update
+      const reg = await navigator.serviceWorker.register(`./sw.js?v=${SW_VERSION}`, { scope: "./" });
+
+      await reg.update();
+
+      if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+
+      let reloading = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (reloading) return;
+        reloading = true;
+        location.reload();
+      });
+
+      reg.addEventListener("updatefound", () => {
+        const nw = reg.installing;
+        if (!nw) return;
+        nw.addEventListener("statechange", () => {
+          if (nw.state === "installed" && navigator.serviceWorker.controller) {
+            if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+          }
+        });
+      });
+    } catch (e) {
+      console.log("❌ Service Worker registration failed:", e);
+    }
+  });
+}
+
 
         function adjustMobilePlaceholder() {
             const filterInput = document.getElementById('filterInput');
