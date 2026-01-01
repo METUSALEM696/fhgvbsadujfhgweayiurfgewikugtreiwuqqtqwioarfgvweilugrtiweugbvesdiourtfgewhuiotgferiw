@@ -2,12 +2,11 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=0.4, minimum-scale=0.4, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, maximum-scale=0.7, minimum-scale=0.7, user-scalable=no">
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
-   <link rel="manifest" href="./manifest.json">
-
+    <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,16 +14,6 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        
-  @media (min-width: 1025px){
-    html { zoom: 0.8 !important; }
-    html { outline: 6px solid red !important; }
-  }
-html, body{
-  zoom: 0.8;         /* 80% */
-}
-
-
         * {
             margin: 0;
             padding: 0;
@@ -685,6 +674,15 @@ html, body{
             position: relative;
             z-index: 1;
         }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+            }
+        }
 
         .header {
             text-align: center;
@@ -1103,6 +1101,65 @@ html, body{
             display: flex;
             gap: 10px;
             width: 100%;
+        }
+        
+        /* Clear button inside input */
+        .input-clear-btn {
+            position: absolute;
+            right: 130px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(239, 68, 68, 0.8);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .input-clear-btn:hover {
+            background: rgba(239, 68, 68, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .input-clear-btn.show {
+            display: flex;
+        }
+        
+        .filter-clear-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(239, 68, 68, 0.8);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .filter-clear-btn:hover {
+            background: rgba(239, 68, 68, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .filter-clear-btn.show {
+            display: flex;
         }
 
         .search-box input {
@@ -1912,7 +1969,6 @@ html, body{
         #notesModal button span {
             color: white !important;
         }
-        
     </style>
 </head>
 <body>
@@ -1958,13 +2014,18 @@ html, body{
         🎨
     </button>
 
+    <!-- Zoom Control Button -->
+    <button id="zoomButton" style="position: fixed; bottom: 450px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 0.9em; display: flex; align-items: center; justify-content: center; font-weight: 900;" onclick="cycleZoom()" title="Zoom: 100%">
+        100%
+    </button>
+
     <!-- Export Button -->
-    <button id="exportButton" style="position: fixed; bottom: 450px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(16, 185, 129, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="exportLinks()" title="Export Link-uri">
+    <button id="exportButton" style="position: fixed; bottom: 520px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="exportLinks()" title="Export Link-uri">
         📥
     </button>
 
     <!-- Import Button -->
-    <button id="importButton" style="position: fixed; bottom: 520px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(245, 158, 11, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="document.getElementById('importFileInput').click()" title="Import Link-uri">
+    <button id="importButton" style="position: fixed; bottom: 590px; right: 30px; width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border: none; border-radius: 50%; color: var(--text); cursor: pointer; box-shadow: 0 5px 20px rgba(139, 92, 246, 0.6); transition: all 0.3s ease; z-index: 100; font-size: 1.5em;" onclick="document.getElementById('importFileInput').click()" title="Import Link-uri">
         📤
     </button>
 
@@ -2034,7 +2095,9 @@ html, body{
         <div class="search-container">
             <div class="search-box">
                 <input type="text" id="googleSearchInput" placeholder="🔍 Caută pe Google sau introdu URL..." 
-                       onkeypress="if(event.key==='Enter') performGoogleSearch()">
+                       onkeypress="if(event.key==='Enter') performGoogleSearch()"
+                       oninput="toggleClearButton('googleSearchInput', 'googleClearBtn')">
+                <button class="input-clear-btn" id="googleClearBtn" onclick="clearGoogleSearch()" title="Șterge (ESC)">✕</button>
                 <button onclick="performGoogleSearch()">Caută</button>
             </div>
         </div>
@@ -2066,7 +2129,8 @@ html, body{
         <div class="search-container">
             <div class="search-box">
                 <input type="text" id="filterInput" placeholder="🔍 Caută site sau categorie (ex: email, filme, youtube)..." 
-                       oninput="filterButtons()">
+                       oninput="filterButtons(); toggleClearButton('filterInput', 'filterClearBtn');">
+                <button class="filter-clear-btn" id="filterClearBtn" onclick="clearFilterInput()" title="Șterge (ESC)">✕</button>
             </div>
         </div>
 
@@ -2405,39 +2469,6 @@ html, body{
     </div>
 
     <script>
-
-
-/* ===== ONE-TIME SW + CACHE NUKE (remove after it works) ===== */
-(async function nukeOnce(){
-  const KEY = "SW_NUKED_ONCE_v1";
-  if (localStorage.getItem(KEY) === "1") return;
-
-  try {
-    if ("serviceWorker" in navigator) {
-      const regs = await navigator.serviceWorker.getRegistrations();
-      for (const r of regs) await r.unregister();
-    }
-  } catch {}
-
-  try {
-    if (window.caches) {
-      const keys = await caches.keys();
-      for (const k of keys) await caches.delete(k);
-    }
-  } catch {}
-
-  localStorage.setItem(KEY, "1");
-
-  // Force reload fresh from network
-  location.replace(location.pathname + "?v=" + Date.now());
-})();
-
-
-
-
-
-
-
         // ===== PREVENT ZOOM ONLY ON MOBILE =====
         (function() {
             'use strict';
@@ -2533,6 +2564,70 @@ html, body{
         const THEMES = ['purple', 'neon', 'sunset', 'ocean', 'light'];
         const THEME_KEY = 'selectedTheme_v1';
         let currentThemeIndex = 0;
+        
+        // ===== ZOOM SYSTEM =====
+        const ZOOM_LEVELS = [70, 80, 90, 100, 110];
+        const ZOOM_KEY = 'zoomLevel_v1';
+        let currentZoomIndex = 3; // Default: 100%
+        
+        function loadZoom() {
+            try {
+                const saved = localStorage.getItem(ZOOM_KEY);
+                if (saved) {
+                    const zoomValue = parseInt(saved);
+                    const index = ZOOM_LEVELS.indexOf(zoomValue);
+                    if (index !== -1) {
+                        currentZoomIndex = index;
+                        applyZoom(zoomValue);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading zoom:', e);
+            }
+            applyZoom(100);
+        }
+        
+        function applyZoom(level) {
+            document.body.style.zoom = (level / 100);
+            updateZoomButton(level);
+            
+            try {
+                localStorage.setItem(ZOOM_KEY, level.toString());
+            } catch (e) {
+                console.error('Error saving zoom:', e);
+            }
+        }
+        
+        function updateZoomButton(level) {
+            const btn = document.getElementById('zoomButton');
+            if (btn) {
+                btn.textContent = level + '%';
+                btn.title = `Zoom: ${level}% (click pentru schimbare)`;
+                
+                // Culoare diferită pentru fiecare nivel
+                const colors = {
+                    70: 'linear-gradient(135deg, #ef4444, #dc2626)',   // Roșu
+                    80: 'linear-gradient(135deg, #f59e0b, #d97706)',   // Portocaliu
+                    90: 'linear-gradient(135deg, #fbbf24, #f59e0b)',   // Galben
+                    100: 'linear-gradient(135deg, #10b981, #059669)',  // Verde (normal)
+                    110: 'linear-gradient(135deg, #06b6d4, #0891b2)'   // Cyan (mărit)
+                };
+                btn.style.background = colors[level] || colors[100];
+            }
+        }
+        
+        function cycleZoom() {
+            playSound('toggleSound', 0.3);
+            
+            currentZoomIndex = (currentZoomIndex + 1) % ZOOM_LEVELS.length;
+            const newZoom = ZOOM_LEVELS[currentZoomIndex];
+            
+            applyZoom(newZoom);
+            
+            const emoji = newZoom < 100 ? '🔍' : newZoom > 100 ? '🔎' : '✅';
+            showNotification(`${emoji} Zoom: ${newZoom}%`, 'success');
+        }
         
         const THEME_INFO = {
             purple: { name: '💜 Purple Dream', emoji: '💜' },
@@ -2856,18 +2951,9 @@ html, body{
             if (editSel) editSel.innerHTML = options;
         }
 
-
-
-
-
-
-
-
-
-        
-
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
+            loadZoom();
             loadSoundSettings();
             
             const linksLoaded = loadAllLinks();
@@ -2904,6 +2990,68 @@ html, body{
                 button.addEventListener('click', () => playSound('clickSound', 0.2));
             });
             
+            // ===== ESC KEY TO CLEAR SEARCH INPUTS =====
+            const googleSearchInput = document.getElementById('googleSearchInput');
+            const filterInput = document.getElementById('filterInput');
+            
+            // ESC pe Google Search
+            if (googleSearchInput) {
+                googleSearchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        googleSearchInput.value = '';
+                        googleSearchInput.blur();
+                        toggleClearButton('googleSearchInput', 'googleClearBtn');
+                        playSound('thudSound', 0.2);
+                        showNotification('🗑️ Căutare ștearsă', 'info');
+                    }
+                });
+            }
+            
+            // ESC pe Filter Input
+            if (filterInput) {
+                filterInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        filterInput.value = '';
+                        filterInput.blur();
+                        filterButtons(); // Reset filter
+                        toggleClearButton('filterInput', 'filterClearBtn');
+                        playSound('thudSound', 0.2);
+                        showNotification('🗑️ Filtru șters', 'info');
+                    }
+                });
+            }
+            
+            // GLOBAL ESC - Închide modale și șterge input activ
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    // Închide toate modalele
+                    document.querySelectorAll('.modal.show').forEach(modal => {
+                        modal.classList.remove('show');
+                        playSound('thudSound', 0.2);
+                    });
+                    
+                    // Dacă un input e focusat și nu e în modal, șterge-l
+                    const activeElement = document.activeElement;
+                    if (activeElement && 
+                        (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') &&
+                        !activeElement.closest('.modal')) {
+                        
+                        const wasEmpty = !activeElement.value;
+                        activeElement.value = '';
+                        
+                        if (!wasEmpty) {
+                            if (activeElement === filterInput) {
+                                filterButtons();
+                                toggleClearButton('filterInput', 'filterClearBtn');
+                            } else if (activeElement === googleSearchInput) {
+                                toggleClearButton('googleSearchInput', 'googleClearBtn');
+                            }
+                            playSound('thudSound', 0.2);
+                        }
+                    }
+                }
+            });
+            
             document.addEventListener('keydown', (e) => {
                 const activeElement = document.activeElement;
                 const isInModal = document.querySelector('.modal.show') !== null;
@@ -2918,7 +3066,7 @@ html, body{
                 }
                 
                 if (!isInModal && !isInInput && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-                  const searchInput = document.getElementById('filterInput');
+                    const searchInput = document.getElementById('searchInput');
                     if (searchInput && searchInput !== activeElement) {
                         searchInput.focus();
                     }
@@ -2952,38 +3100,18 @@ html, body{
             });
         }
         
-    if ("serviceWorker" in navigator) {
-  window.addEventListener("load", async () => {
-    try {
-      const SW_VERSION = "2026-01-01_01"; // <-- schimbă asta când faci update
-      const reg = await navigator.serviceWorker.register(`./sw.js?v=${SW_VERSION}`, { scope: "./" });
-
-      await reg.update();
-
-      if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
-
-      let reloading = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (reloading) return;
-        reloading = true;
-        location.reload();
-      });
-
-      reg.addEventListener("updatefound", () => {
-        const nw = reg.installing;
-        if (!nw) return;
-        nw.addEventListener("statechange", () => {
-          if (nw.state === "installed" && navigator.serviceWorker.controller) {
-            if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
-          }
-        });
-      });
-    } catch (e) {
-      console.log("❌ Service Worker registration failed:", e);
-    }
-  });
-}
-
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(
+                    (registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    },
+                    (error) => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    }
+                );
+            });
+        }
 
         function adjustMobilePlaceholder() {
             const filterInput = document.getElementById('filterInput');
@@ -3312,6 +3440,44 @@ html, body{
                 window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
             }
             document.getElementById('googleSearchInput').value = '';
+            toggleClearButton('googleSearchInput', 'googleClearBtn');
+        }
+        
+        // ===== CLEAR BUTTONS FUNCTIONALITY =====
+        function toggleClearButton(inputId, btnId) {
+            const input = document.getElementById(inputId);
+            const btn = document.getElementById(btnId);
+            
+            if (input && btn) {
+                if (input.value.trim().length > 0) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            }
+        }
+        
+        function clearGoogleSearch() {
+            const input = document.getElementById('googleSearchInput');
+            if (input) {
+                input.value = '';
+                input.focus();
+                toggleClearButton('googleSearchInput', 'googleClearBtn');
+                playSound('thudSound', 0.2);
+                showNotification('🗑️ Căutare ștearsă', 'info');
+            }
+        }
+        
+        function clearFilterInput() {
+            const input = document.getElementById('filterInput');
+            if (input) {
+                input.value = '';
+                input.focus();
+                filterButtons();
+                toggleClearButton('filterInput', 'filterClearBtn');
+                playSound('thudSound', 0.2);
+                showNotification('🗑️ Filtru șters', 'info');
+            }
         }
 
         function updateClock() {
@@ -4092,7 +4258,8 @@ html, body{
                     notes: getNotes(),
                     passwordHistory: JSON.parse(localStorage.getItem(PASSWORD_HISTORY_KEY) || '[]'),
                     theme: localStorage.getItem(THEME_KEY) || 'purple',
-                    soundEnabled: localStorage.getItem(SOUND_ENABLED_KEY) === 'true'
+                    soundEnabled: localStorage.getItem(SOUND_ENABLED_KEY) === 'true',
+                    zoomLevel: parseInt(localStorage.getItem(ZOOM_KEY) || '100')
                 };
                 
                 const jsonString = JSON.stringify(exportData, null, 2);
@@ -4153,7 +4320,8 @@ html, body{
                         `• Notes: ${importData.notes ? importData.notes.length : 0}\n` +
                         `• Parole: ${importData.passwordHistory ? importData.passwordHistory.length : 0}\n` +
                         `• Temă: ${importData.theme || 'N/A'}\n` +
-                        `• Sunete: ${importData.soundEnabled !== undefined ? (importData.soundEnabled ? 'ON' : 'OFF') : 'N/A'}\n\n` +
+                        `• Sunete: ${importData.soundEnabled !== undefined ? (importData.soundEnabled ? 'ON' : 'OFF') : 'N/A'}\n` +
+                        `• Zoom: ${importData.zoomLevel || '100'}%\n\n` +
                         `⚠️ ATENȚIE: Toate datele curente vor fi ÎNLOCUITE!\n\n` +
                         `Continui cu importul?`;
 
@@ -4208,6 +4376,13 @@ html, body{
                         console.log('✅ Imported sound setting:', soundEnabled);
                     }
 
+                    if (importData.zoomLevel && ZOOM_LEVELS.includes(importData.zoomLevel)) {
+                        const index = ZOOM_LEVELS.indexOf(importData.zoomLevel);
+                        currentZoomIndex = index;
+                        applyZoom(importData.zoomLevel);
+                        console.log('✅ Imported zoom level:', importData.zoomLevel);
+                    }
+
                     renderLinks();
 
                     playSound('permanentSound', 0.5);
@@ -4247,7 +4422,8 @@ html, body{
                 notes: JSON.parse(localStorage.getItem('notes_v1') || '[]'),
                 passwords: JSON.parse(localStorage.getItem('passwordHistory_v1') || '[]'),
                 theme: localStorage.getItem('selectedTheme_v1') || 'purple',
-                soundEnabled: localStorage.getItem('soundEnabled_v1') === 'true'
+                soundEnabled: localStorage.getItem('soundEnabled_v1') === 'true',
+                zoomLevel: parseInt(localStorage.getItem('zoomLevel_v1') || '100')
             };
             
             const themeNames = {
@@ -4347,6 +4523,10 @@ html, body{
                             <span style="font-weight: 700; font-size: 1.2em;">${data.soundEnabled ? '✅ ON' : '🔇 OFF'}</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                            <span style="opacity: 0.9;">🔍 Zoom</span>
+                            <span style="font-weight: 700; font-size: 1.2em;">${data.zoomLevel}%</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; grid-column: 1 / -1;">
                             <span style="opacity: 0.9;">💾 Total date</span>
                             <span style="font-weight: 700; font-size: 1.2em;">${data.links.length + data.notes.length + data.passwords.length}</span>
                         </div>
