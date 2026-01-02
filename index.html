@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.4, maximum-scale=0.4, minimum-scale=0.4, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>🚀 HERCULES MATUSALEM - Command Center</title>
     
     <!-- PWA Manifest -->
@@ -15,15 +14,15 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-
-        html, body{
-  zoom: 0.8;         /* 80% */
-}
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+            width: 100%;
         }
 
         /* ✅ FIX 1 - Animation moved to top */
@@ -252,6 +251,189 @@
                 font-size: 0.9em;
             }
         }
+        
+        /* Extra small screens (phones in portrait) */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em !important;
+            }
+            
+            .main-time-display {
+                font-size: 1.5em !important;
+                letter-spacing: 0.08em;
+            }
+            
+            .full-date-display {
+                font-size: 0.75em !important;
+            }
+            
+            .date-details-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+            
+            .date-detail-item {
+                font-size: 0.75em;
+                padding: 4px 8px;
+            }
+            
+            .detail-emoji {
+                font-size: 2em;
+            }
+            
+            .enhanced-clock-container {
+                padding: 6px 15px;
+                height: auto;
+                min-height: 120px;
+            }
+            
+            .header {
+                padding: 20px 10px;
+                min-height: auto;
+            }
+            
+            .subtitle .badge {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+            
+            /* Search box responsive */
+            .search-box {
+                gap: 6px;
+            }
+            
+            .search-box input {
+                font-size: 1.5em;
+                padding: 16px 20px;
+                padding-right: 62px;
+                font-weight: 700;
+            }
+            
+            .search-box button {
+                padding: 16px 22px;
+                font-size: 1em;
+                font-weight: 700;
+            }
+            
+            .input-clear-btn,
+            .filter-clear-btn {
+                width: 45px;
+                font-size: 1.3em;
+                background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+                box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4) !important;
+                height: calc(100% - 6px) !important;
+                border-radius: 8px !important;
+            }
+            
+            .input-clear-btn {
+                right: 75px !important;
+            }
+            
+            .filter-clear-btn {
+                right: 8px !important;
+            }
+            
+            .search-history {
+                padding: 15px;
+            }
+            
+            .search-history-title {
+                font-size: 1em;
+            }
+            
+            .search-history-item {
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+            
+            .container {
+                padding: 5px !important;
+            }
+            
+            /* Link cards responsive */
+            .links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 12px;
+            }
+            
+            .link-card {
+                padding: 15px;
+            }
+            
+            .link-card img {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .link-card .link-name {
+                font-size: 0.8em;
+            }
+            
+            .favorite-star {
+                font-size: 1.2em;
+                top: 5px;
+                right: 5px;
+            }
+        }
+        
+        /* Ultra small screens - Buton doar cu icon */
+        @media (max-width: 380px) {
+            /* Ascunde textul butonului pe ecrane foarte mici */
+            .search-box button {
+                font-size: 0 !important;
+                padding: 14px 18px !important;
+                min-width: 50px;
+            }
+            
+            .search-box button::after {
+                content: '🔍';
+                font-size: 1.3em;
+                display: inline-block;
+            }
+            
+            .header h1 {
+                font-size: 1.6em !important;
+            }
+            
+            .search-box input {
+                padding: 12px 16px !important;
+                padding-right: 58px !important;
+                font-size: 1.4em !important;
+                font-weight: 700 !important;
+            }
+        }
+        
+        /* Medium screens (tablets) */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .main-time-display {
+                font-size: 1.8em;
+            }
+            
+            .enhanced-clock-container {
+                padding: 8px 20px;
+            }
+            
+            .search-box input {
+                font-size: 1.6em;
+                padding: 16px 20px;
+                font-weight: 700;
+            }
+            
+            .search-box button {
+                padding: 18px 35px;
+                font-size: 1.1em;
+                font-weight: 700;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 15px;
+            }
+        }
 
         /* THEME 1: Purple Dream 💜 */
         body[data-theme="purple"] {
@@ -472,10 +654,10 @@
             background: rgba(255, 255, 255, 0.9);
             color: #1e293b;
         }
-       body[data-theme="light"] .search-box input::placeholder {
-    color: rgba(30, 41, 59, 0.8);
-    font-weight: 700;
-}
+        body[data-theme="light"] .search-box input::placeholder {
+            color: rgba(30, 41, 59, 0.8);
+            font-weight: 700;
+        }
         body[data-theme="light"] .search-box input:focus {
             border-color: #3b82f6;
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
@@ -640,6 +822,7 @@
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            width: 100%;
             transition: background 0.5s ease;
             touch-action: manipulation;
             -ms-touch-action: manipulation;
@@ -1110,104 +1293,124 @@
             width: 100%;
         }
         
-        /* Clear button inside input */
-        ./* Clear button inside input - FULL HEIGHT */
-.input-clear-btn {
-    position: absolute;
-    right: 130px;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    color: white;
-    width: 60px;
-    cursor: pointer;
-    font-size: 1.3em;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-    font-weight: 700;
-}
+        /* Clear button inside Google search - MAXIMUM RIGHT POSITION */
+        .input-clear-btn {
+            position: absolute;
+            right: 160px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: calc(100% - 8px);
+            background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+            border: none;
+            border-radius: 10px;
+            color: white !important;
+            width: 50px;
+            cursor: pointer;
+            font-size: 1.6em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-weight: 900;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4) !important;
+        }
+        
+        .input-clear-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #990000) !important;
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
+        }
+        
+        .input-clear-btn.show {
+            display: flex;
+        }
+        
+        .filter-clear-btn {
+            position: absolute;
+            right:4px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: calc(100% - 8px);
+            background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+            border: none;
+            border-radius: 10px;
+            color: white !important;
+            width: 50px;
+            cursor: pointer;
+            font-size: 1.6em;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-weight: 900;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4) !important;
+        }
+        
+        .filter-clear-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #990000) !important;
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
+        }
+        
+        .filter-clear-btn.show {
+            display: flex;
+        }
+        
+        /* FORȚARE ROȘU - Reguli ultra-specifice */
+        button.input-clear-btn,
+        button.input-clear-btn.show,
+        .search-box button.input-clear-btn,
+        button.filter-clear-btn,
+        button.filter-clear-btn.show,
+        .search-box button.filter-clear-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4) !important;
+        }
+        
+        button.input-clear-btn:hover,
+        button.input-clear-btn.show:hover,
+        .search-box button.input-clear-btn:hover,
+        button.filter-clear-btn:hover,
+        button.filter-clear-btn.show:hover,
+        .search-box button.filter-clear-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #990000) !important;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
+        }
 
-.input-clear-btn:hover {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    transform: scaleX(1.05);
-}
 
-.input-clear-btn.show {
-    display: flex;
-}
+        .search-box input {
+            flex: 1;
+            padding: 20px 28px;
+            padding-right: 70px; /* Space for clear button (50px + 20px gap) */
+            font-size: 1.8em;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--text);
+            outline: none;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Google search input needs padding for internal clear button only */
+        #googleSearchInput {
+            padding-right: 150px; /* Space for clear button (50px @ 90px) + search button (60px) */
+        }
+        
+        /* Filter input with clear button at far right */
+        #filterInput {
+            padding-right: 70px; /* Space for clear button */
+        }
 
-.filter-clear-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border: none;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    color: white;
-    width: 60px;
-    cursor: pointer;
-    font-size: 1.3em;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-    font-weight: 700;
-}
-
-.filter-clear-btn:hover {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    transform: scaleX(1.05);
-}
-
-.filter-clear-btn.show {
-    display: flex;
-}
-
-   .search-box input {
-    flex: 1;
-    padding: 18px 25px;
-    padding-right: 70px; /* Space for clear button */
-    font-size: 1.15em;
-    font-weight: 600;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.25);
-    color: var(--text);
-    outline: none;
-    transition: all 0.5s ease;
-    backdrop-filter: blur(10px);
-}
-
-
-/* Google search input needs extra padding for button */
-#googleSearchInput {
-    padding-right: 200px; /* Space for clear button + search button */
-}
-
-/* Filter input with clear button */
-#filterInput {
-    padding-right: 70px; /* Space for clear button */
-}
         .search-box input::placeholder {
-    color: rgba(255, 255, 255, 0.95);
-    font-weight: 700;
-    font-size: 1.05em;
-}
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+            font-size: 1em;
+        }
 
         .search-box input:focus {
             border-color: rgba(255, 255, 255, 0.9);
@@ -1216,15 +1419,17 @@
         }
 
         .search-box button {
-            padding: 18px 40px;
+            padding: 20px 45px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             border-radius: 50px;
             color: var(--text);
-            font-size: 1.1em;
+            font-size: 1.2em;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 600;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .search-box button:hover {
@@ -2619,7 +2824,18 @@
         }
         
         function applyZoom(level) {
-            document.body.style.zoom = (level / 100);
+            // ✅ APLICĂ ZOOM DOAR PE CONTAINER, NU PE BODY
+            const container = document.querySelector('.container');
+            if (container) {
+                container.style.zoom = (level / 100);
+            }
+            
+            // Aplică și pe header pentru consistență
+            const header = document.querySelector('.header');
+            if (header) {
+                header.style.zoom = (level / 100);
+            }
+            
             updateZoomButton(level);
             
             try {
